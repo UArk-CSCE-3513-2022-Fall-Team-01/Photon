@@ -1,20 +1,20 @@
 public class PlayerTest implements IPlayer {
     private int id;
     private String codename;
-    private int hitPoints;
+    private boolean isAlive;
     private int score;
 
     public PlayerTest() {
         this.id = 0;
         this.codename = "Joker";
-        this.hitPoints = 10;
+        this.isAlive = true;
         this.score = 777;
     }
 
-    public PlayerTest(int id, String codename, int hitPoints, int score) {
+    public PlayerTest(int id, String codename, boolean isAlive, int score) {
         this.id = id;
         this.codename = codename;
-        this.hitPoints = hitPoints;
+        this.isAlive = isAlive;
         this.score = score;
     }
 
@@ -39,16 +39,6 @@ public class PlayerTest implements IPlayer {
     }
 
     @Override
-    public int hitPoints() {
-        return this.hitPoints;
-    }
-
-    @Override
-    public void hitPoints(int newHitPoints) {
-        this.hitPoints = newHitPoints;
-    }
-
-    @Override
     public int id() {
         return this.id;
     }
@@ -64,7 +54,12 @@ public class PlayerTest implements IPlayer {
     }
 
     @Override
-    public void takeDamage(int amount) {
-        this.hitPoints -= amount;
+    public void hit() {
+        this.isAlive = false;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return this.isAlive;
     }
 }
