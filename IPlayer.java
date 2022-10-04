@@ -1,12 +1,12 @@
 public interface IPlayer {
     public int id();
     public String codename();
-    public String codename(String newCodename);
+    public void codename(String newCodename);
     public int hitPoints();
-    public int hitPoints(int newHitPoints);
-    public int takeDamage(int amount);
+    public void hitPoints(int newHitPoints);
+    public void takeDamage(int amount);
     public int score();
-    public int score(int newScore);
-    public int addScore(int amount);
-    public int deductScore(int amount);
+    public void score(int newScore);
+    public void addScore(int amount);
+    public void deductScore(int amount);
 }
