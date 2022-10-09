@@ -5,6 +5,7 @@ import java.sql.*;
 public class HerokuPostgreDatabase implements IPlayerDatabase {
     private URI dbUri;
     private Connection connection;
+    private static final String TABLE_NAME = "PLAYER";
 
     public HerokuPostgreDatabase(URI dbUri) throws SQLException {
         this.dbUri = dbUri;
@@ -29,7 +30,8 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
         String result = "";
 
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM PLAYERS WHERE ID = " + id);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TABLE_NAME
+                + " WHERE ID = " + id);
 
             if (resultSet.next()) {
                 result = resultSet.getString("Codename");
@@ -47,7 +49,7 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
     @Override
     public boolean addPlayerRecord(int id, String codename) {
         boolean result = false;
-        String sql = "INSERT INTO PLAYERS (ID, CODENAME)"
+        String sql = "INSERT INTO " + TABLE_NAME + " (ID, CODENAME)"
             + " VALUES (" + id + ", \"" + codename + "\")";
 
         if (getCodename(id).isBlank()) {
