@@ -5,7 +5,7 @@ import java.sql.*;
 public class HerokuPostgreDatabase implements IPlayerDatabase {
     private URI dbUri;
     private Connection connection;
-    private static final String TABLE_NAME = "PLAYER";
+    private static final String TABLE_NAME = "players";
 
     public HerokuPostgreDatabase(URI dbUri) throws SQLException {
         this.dbUri = dbUri;
