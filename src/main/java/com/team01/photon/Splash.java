@@ -1,3 +1,4 @@
+package com.team01.photon;
 import java.awt.Image;
 import javax.swing.*;
 
