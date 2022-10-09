@@ -1,3 +1,4 @@
+package com.team01.photon;
 import java.util.HashMap;
 
 public class PlayerDatabaseTest implements IPlayerDatabase {
