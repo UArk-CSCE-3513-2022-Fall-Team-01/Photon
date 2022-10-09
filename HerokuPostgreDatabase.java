@@ -1,12 +1,11 @@
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.*;
 
 public class HerokuPostgreDatabase implements IPlayerDatabase {
     private URI dbUri;
     private Connection connection;
 
-    public HerokuPostgreDatabase(URI dbUri) throws URISyntaxException, SQLException {
+    public HerokuPostgreDatabase(URI dbUri) throws SQLException {
         this.dbUri = dbUri;
         this.connection = getConnection(this.dbUri);
     }
@@ -16,7 +15,7 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
             + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
     }
 
-    private Connection getConnection(URI dbUri) throws URISyntaxException, SQLException {
+    private Connection getConnection(URI dbUri) throws SQLException {
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = formatDbUrl(dbUri);
