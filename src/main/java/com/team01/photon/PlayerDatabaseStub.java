@@ -1,10 +1,10 @@
 package com.team01.photon;
 import java.util.HashMap;
 
-public class PlayerDatabaseTest implements IPlayerDatabase {
+public class PlayerDatabaseStub implements IPlayerDatabase {
     private HashMap<Integer, String> database;
 
-    public PlayerDatabaseTest() {
+    public PlayerDatabaseStub() {
         database = new HashMap<>(30);
         database.put(1, "Opus");
         database.put(2, "Adam");
