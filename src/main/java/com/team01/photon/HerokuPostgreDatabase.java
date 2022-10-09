@@ -1,5 +1,6 @@
 package com.team01.photon;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.*;
 
 public class HerokuPostgreDatabase implements IPlayerDatabase {
@@ -7,22 +8,10 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
     private Connection connection;
     private static final String TABLE_NAME = "players";
 
-    public HerokuPostgreDatabase(URI dbUri) throws SQLException {
-        this.dbUri = dbUri;
+    // Pass in a String of the Heroku app's DATABASE_URL
+    public HerokuPostgreDatabase(String databaseUrl) throws SQLException, URISyntaxException {
+        this.dbUri = new URI(databaseUrl);
         this.connection = getConnection(this.dbUri);
-    }
-
-    private String formatDbUrl(URI dbUri) {
-        return "jdbc:postgresql://" + dbUri.getHost() + ':'
-            + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
-    }
-
-    private Connection getConnection(URI dbUri) throws SQLException {
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = formatDbUrl(dbUri);
-        
-        return DriverManager.getConnection(dbUrl, username, password);
     }
 
     @Override
@@ -67,5 +56,19 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
         }
 
         return result;
+    }
+
+    // Using Heroku's DATABASE_URL with PostgreSQL JDBC requires some formatting of the string
+    private String formatDbUrl(URI dbUri) {
+        return "jdbc:postgresql://" + dbUri.getHost() + ':'
+            + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+    }
+
+    private Connection getConnection(URI dbUri) throws SQLException {
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = formatDbUrl(dbUri);
+        
+        return DriverManager.getConnection(dbUrl, username, password);
     }
 }
