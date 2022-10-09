@@ -1,3 +1,4 @@
+package com.team01.photon;
 public interface IPlayer {
     public int id();
     public String codename();

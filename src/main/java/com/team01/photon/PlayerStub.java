@@ -1,17 +1,18 @@
-public class PlayerTest implements IPlayer {
+package com.team01.photon;
+public class PlayerStub implements IPlayer {
     private int id;
     private String codename;
     private boolean isAlive;
     private int score;
 
-    public PlayerTest() {
+    public PlayerStub() {
         this.id = 0;
         this.codename = "Joker";
         this.isAlive = true;
         this.score = 777;
     }
 
-    public PlayerTest(int id, String codename, boolean isAlive, int score) {
+    public PlayerStub(int id, String codename, boolean isAlive, int score) {
         this.id = id;
         this.codename = codename;
         this.isAlive = isAlive;
