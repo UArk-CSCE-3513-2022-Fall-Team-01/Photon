@@ -31,7 +31,7 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
 
         try (Statement statement = this.connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TABLE_NAME
-                + " WHERE ID = " + id);
+                + " WHERE ID = " + id + ";");
 
             if (resultSet.next()) {
                 result = resultSet.getString("Codename");
@@ -50,7 +50,7 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
     public boolean addPlayerRecord(int id, String codename) {
         boolean result = false;
         String sql = "INSERT INTO " + TABLE_NAME + " (ID, CODENAME)"
-            + " VALUES (" + id + ", \"" + codename + "\")";
+            + " VALUES (" + id + ", '" + codename + "')";
 
         if (getCodename(id).isBlank()) {
             try (Statement statement = this.connection.createStatement()) {
