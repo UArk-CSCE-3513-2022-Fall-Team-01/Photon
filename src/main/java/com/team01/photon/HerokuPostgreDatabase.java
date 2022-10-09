@@ -6,12 +6,19 @@ import java.sql.*;
 public class HerokuPostgreDatabase implements IPlayerDatabase {
     private URI dbUri;
     private Connection connection;
-    private static final String TABLE_NAME = "players";
+    private static final String DB_TABLE_NAME = "players";
+    private static final String DBURL_ENVVAR_NAME = "DATABASE_URL";
+
+    // Pick up system's env var for the URL
+    public HerokuPostgreDatabase() throws SQLException, URISyntaxException {
+        this.dbUri = new URI(System.getenv(DBURL_ENVVAR_NAME));
+        initConnection();
+    }
 
     // Pass in a String of the Heroku app's DATABASE_URL
     public HerokuPostgreDatabase(String databaseUrl) throws SQLException, URISyntaxException {
         this.dbUri = new URI(databaseUrl);
-        this.connection = getConnection(this.dbUri);
+        initConnection();
     }
 
     @Override
@@ -19,7 +26,7 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
         String result = "";
 
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TABLE_NAME
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + DB_TABLE_NAME
                 + " WHERE ID = " + id + ";");
 
             if (resultSet.next()) {
@@ -38,7 +45,7 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
     @Override
     public boolean addPlayerRecord(int id, String codename) {
         boolean result = false;
-        String sql = "INSERT INTO " + TABLE_NAME + " (ID, CODENAME)"
+        String sql = "INSERT INTO " + DB_TABLE_NAME + " (ID, CODENAME)"
             + " VALUES (" + id + ", '" + codename + "')";
 
         if (getCodename(id).isBlank()) {
@@ -56,6 +63,10 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
         }
 
         return result;
+    }
+
+    private void initConnection() throws SQLException {
+        this.connection = getConnection(this.dbUri);
     }
 
     // Using Heroku's DATABASE_URL with PostgreSQL JDBC requires some formatting of the string
