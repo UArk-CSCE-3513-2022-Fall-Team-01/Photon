@@ -2,9 +2,12 @@ package com.team01.photon;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Arrays;
 
 public class EntryGraphics extends JPanel implements KeyListener
 {
+    public Game game;
+
     private final int frameW;
     private final int frameH;
     private int playerSelected;
@@ -17,15 +20,25 @@ public class EntryGraphics extends JPanel implements KeyListener
     private final int idWidth;
     private final int playerWidth;
     private final int redTeamX; //X value to start drawing the selection box for red team
-    private final int blueTeamX; //X value to start drawing the selection box for blue team
+    private final int greenTeamX; //X value to start drawing the selection box for blue team
     private final int startingY; //Y value to start drawing the selection box
 
-    //Keys
-    boolean tabKeyDown;
+    //Playername/ID editing variables
+    private String currentEditText;
+    private String acceptableIDchars;
+    private String acceptableCodenameChars;
+    private Font textFont;
+
+    public int[] redTeamIDs;
+    public int[] greenTeamIDs;
+    public String[] redTeamNames;
+    public String[] greenTeamNames;
 
 
-    public EntryGraphics(int width, int height)
+
+    public EntryGraphics(Game game, int width, int height)
     {
+        this.game = game;
         frameW = width;
         frameH = height;
         playerSelected = 0;
@@ -38,11 +51,20 @@ public class EntryGraphics extends JPanel implements KeyListener
         idWidth = 90;
         playerWidth = 250;
         redTeamX = 45;
-        blueTeamX = 445;
+        greenTeamX = 445;
         startingY = 120;
 
-        //Keys
-        tabKeyDown = false;
+        currentEditText = "";
+        acceptableIDchars = "0123456789";
+        acceptableCodenameChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        textFont = new Font("SANS_SERIF",Font.PLAIN,35);
+
+        redTeamIDs = new int[15];
+        Arrays.fill(redTeamIDs, -1);
+        greenTeamIDs = new int[15];
+        Arrays.fill(greenTeamIDs, -1);
+        redTeamNames = new String[15];
+        greenTeamNames = new String[15];
 
     }
 
@@ -59,28 +81,152 @@ public class EntryGraphics extends JPanel implements KeyListener
 
         //Selection box outline
         g.setColor(System.currentTimeMillis() % 700 > 350 ? Color.BLUE : Color.WHITE);
+
+        int x = (teamSelected ? greenTeamX : redTeamX) + (editingCodename ? idWidth + pixelsBetweenBoxes : 0);
+        int y = startingY + playerSelected*(pixelsBetweenBoxes+boxHeight);
+        int w = (editingCodename ? playerWidth : idWidth);
+        int h = boxHeight;
+
         for(int outlineLayer = 0; outlineLayer < 5; outlineLayer++)
         {
-            int x = (teamSelected ? blueTeamX : redTeamX) + (editingCodename ? idWidth : 0) + outlineLayer;
-            int y = startingY + playerSelected*(pixelsBetweenBoxes+boxHeight) + outlineLayer;
-            int w = (editingCodename ? playerWidth : idWidth) + (9-outlineLayer*2);
-            int h = boxHeight + (9-outlineLayer*2);
-            g.drawRect(x,y,w,h);
+            int olX = x + outlineLayer;
+            int olY = y + outlineLayer;
+            int olW = w + (9-outlineLayer*2);
+            int olH = h + (9-outlineLayer*2);
+            g.drawRect(olX,olY,olW,olH);
         }
+
+        //Current text input drawing
+        g.setFont(textFont);
+        g.drawString(currentEditText,x + pixelsBetweenBoxes, y + boxHeight);
+
+        //Stored IDs and codenames drawing
+        g.setColor(Color.BLACK);
+
+        //Red team IDs
+        for(int id = 0; id < 15; id++)
+        {
+            x = redTeamX;
+            y = startingY + id*(pixelsBetweenBoxes+boxHeight);
+
+            int playerID = redTeamIDs[id];
+            if(playerID > -1){
+                g.drawString(Integer.toString(playerID),x + pixelsBetweenBoxes, y + boxHeight);
+            }
+        }
+
+        //Green team IDs
+        for(int id = 0; id < 15; id++)
+        {
+            x = greenTeamX;
+            y = startingY + id*(pixelsBetweenBoxes+boxHeight);
+
+            int playerID = greenTeamIDs[id];
+            if(playerID > -1){
+                g.drawString(Integer.toString(playerID),x + pixelsBetweenBoxes, y + boxHeight);
+            }
+        }
+
+        //Red team names
+        for(int id = 0; id < 15; id++)
+        {
+            x = redTeamX + idWidth + pixelsBetweenBoxes;
+            y = startingY + id*(pixelsBetweenBoxes+boxHeight);
+
+            String playerName = redTeamNames[id];
+            if(playerName != null){
+                g.drawString(playerName,x + pixelsBetweenBoxes, y + boxHeight);
+            }
+        }
+
+        //Red team names
+        for(int id = 0; id < 15; id++)
+        {
+            x = greenTeamX + idWidth + pixelsBetweenBoxes;
+            y = startingY + id*(pixelsBetweenBoxes+boxHeight);
+
+            String playerName = greenTeamNames[id];
+            if(playerName != null){
+                g.drawString(playerName,x + pixelsBetweenBoxes, y + boxHeight);
+            }
+        }
+
     }
 
     public void keyPressed(KeyEvent ke)
     {
-        System.out.println(ke.getKeyCode());
         switch(ke.getKeyCode())
         {
             case KeyEvent.VK_TAB:
-                playerSelected++;
+                try {
+                    if (!editingCodename) {
+                        int playerID = Integer.parseInt(currentEditText);
+                        String playerCodename = game.herokuDB.getCodename(playerID);
+                        if (!teamSelected) {
+                            redTeamIDs[playerSelected] = playerID;
+                            if (playerCodename != "") {
+                                redTeamNames[playerSelected] = playerCodename;
+                                teamSelected = true;
+                            } else {
+                                editingCodename = true;
+                            }
+                            currentEditText = "";
+                        } else {
+                            greenTeamIDs[playerSelected] = playerID;
+                            if (playerCodename != "") {
+                                greenTeamNames[playerSelected] = playerCodename;
+                                teamSelected = false;
+                                playerSelected++;
+                                if (playerSelected > 14) {
+                                    playerSelected = 0;
+                                }
+                            } else {
+                                editingCodename = true;
+                            }
+                            currentEditText = "";
+                        }
+                    } else {
+                        if (!teamSelected) {
+                            int playerID = redTeamIDs[playerSelected];
+                            if (game.herokuDB.addPlayerRecord(playerID, currentEditText)) {
+                                redTeamNames[playerSelected] = currentEditText;
+                                editingCodename = false;
+                                teamSelected = true;
+                                currentEditText = "";
+                            }
+                        } else {
+                            int playerID = greenTeamIDs[playerSelected];
+                            if (game.herokuDB.addPlayerRecord(playerID, currentEditText)) {
+                                greenTeamNames[playerSelected] = currentEditText;
+                                editingCodename = false;
+                                teamSelected = false;
+                                playerSelected++;
+                                if (playerSelected > 14) {
+                                    playerSelected = 0;
+                                }
+                                currentEditText = "";
+                            }
+                        }
+                    }
+                }catch(Exception e){}
                 break;
         }
     }
     public void keyReleased(KeyEvent ke)
     {
     }
-    public void keyTyped(KeyEvent ke){}
+    public void keyTyped(KeyEvent ke)
+    {
+        if(!editingCodename){
+            if(acceptableIDchars.indexOf(ke.getKeyChar()) > -1)
+            {
+                currentEditText = currentEditText + ke.getKeyChar();
+            }
+        }else{
+            if(acceptableCodenameChars.indexOf(ke.getKeyChar()) > -1)
+            {
+                currentEditText = currentEditText + ke.getKeyChar();
+            }
+        }
+    }
 }

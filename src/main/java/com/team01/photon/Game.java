@@ -3,12 +3,18 @@ import javax.swing.*;
 public class Game extends JFrame
 {
     public EntryGraphics entryScreen;
+
+    public IPlayer[] redTeam;
+    public IPlayer[] greenTeam;
+
+    public HerokuPostgreDatabase herokuDB;
+
     public Game()
     {
         int frameW = 800;
         int frameH = 1000;
 
-        entryScreen = new EntryGraphics(frameW,frameH);
+        entryScreen = new EntryGraphics(this,frameW,frameH);
 
         //JFrame settings
         this.setTitle("Photon");
@@ -23,6 +29,16 @@ public class Game extends JFrame
 
         //Add a key listener for keyboard input
         this.addKeyListener(entryScreen);
+
+        //Set up teams and the Heroku database connection
+        redTeam = new IPlayer[15];
+        greenTeam = new IPlayer[15];
+        try {
+            herokuDB = new HerokuPostgreDatabase("postgres://kpzobqnwpafnyz:c2b612290e4aca89454e4c97e18d21cf0586baabdd41701f9c0162ce24cea4d7@ec2-52-207-90-231.compute-1.amazonaws.com:5432/d48c8dhcuoropm");
+        }catch(Exception e){
+            System.out.println("There was a problem linking to the database");
+            e.printStackTrace();
+        }
 
     }
 
