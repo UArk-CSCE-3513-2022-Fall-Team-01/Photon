@@ -22,7 +22,7 @@ class Splash {
         frame.setResizable(false);                   // Prevents the manual resize of the window. 
     }
     public void addImage(){        
-        ImageIcon image = new ImageIcon("logo.jpg");    // Creates ImageIcon component. 
+        ImageIcon image = new ImageIcon(this.getClass().getResource("/logo.jpg"));    // Creates ImageIcon component. 
         Image newImage1 = image.getImage();                       // Transforms image.
         Image newImage2 = newImage1.getScaledInstance(871, 555,  java.awt.Image.SCALE_SMOOTH); // Scales the image. 
         ImageIcon icon = new ImageIcon(newImage2);                // Adds the scaled image to icon 
