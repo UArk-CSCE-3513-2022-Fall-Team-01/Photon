@@ -12,7 +12,7 @@ public class HerokuPostgreDatabase implements IPlayerDatabase {
     }
 
     private String formatDbUrl(URI dbUri) {
-        return "jdbc:posgresql://" + dbUri.getHost() + ':'
+        return "jdbc:postgresql://" + dbUri.getHost() + ':'
             + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
     }
 
