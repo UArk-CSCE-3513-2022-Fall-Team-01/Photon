@@ -39,6 +39,11 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.4.2</version>
         <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.team01.photon.Game</mainClass>
+            </manifest>
+          </archive>
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
@@ -78,13 +83,6 @@
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
           <configuration>
-            <archive>
-              <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                <mainClass>com.team01.photon.Game</mainClass>
-              </manifest>
-            </archive>
           </configuration>
         </plugin>
         <plugin>
