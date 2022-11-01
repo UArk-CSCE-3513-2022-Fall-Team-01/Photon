@@ -4,15 +4,15 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.Arrays;
 
-public class EntryGraphics extends JPanel implements KeyListener
+public class EntryGraphics extends JPanel
 {
     public Game game;
 
     private final int frameW;
     private final int frameH;
-    private int playerSelected;
-    private boolean teamSelected; //False for red, true for green
-    private boolean editingCodename; //False means entering ID, true means entering/editing codename
+    public int playerSelected;
+    public boolean teamSelected; //False for red, true for green
+    public boolean editingCodename; //False means entering ID, true means entering/editing codename
 
     //Spacing variables
     private final int pixelsBetweenBoxes;
@@ -23,16 +23,9 @@ public class EntryGraphics extends JPanel implements KeyListener
     private final int greenTeamX; //X value to start drawing the selection box for blue team
     private final int startingY; //Y value to start drawing the selection box
 
-    //Playername/ID editing variables
-    private String currentEditText;
-    private String acceptableIDchars;
-    private String acceptableCodenameChars;
+    public String editText;
+    public String temporaryIDText;
     private Font textFont;
-
-    public int[] redTeamIDs;
-    public int[] greenTeamIDs;
-    public String[] redTeamNames;
-    public String[] greenTeamNames;
 
 
 
@@ -54,18 +47,9 @@ public class EntryGraphics extends JPanel implements KeyListener
         greenTeamX = 445;
         startingY = 120;
 
-        currentEditText = "";
-        acceptableIDchars = "0123456789";
-        acceptableCodenameChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         textFont = new Font("SANS_SERIF",Font.PLAIN,35);
-
-        redTeamIDs = new int[15];
-        Arrays.fill(redTeamIDs, -1);
-        greenTeamIDs = new int[15];
-        Arrays.fill(greenTeamIDs, -1);
-        redTeamNames = new String[15];
-        greenTeamNames = new String[15];
-
+        editText = "";
+        temporaryIDText = "";
     }
 
     @Override
@@ -98,7 +82,9 @@ public class EntryGraphics extends JPanel implements KeyListener
 
         //Current text input drawing
         g.setFont(textFont);
-        g.drawString(currentEditText,x + pixelsBetweenBoxes, y + boxHeight);
+        g.drawString(editText,x + pixelsBetweenBoxes, y + boxHeight);
+        g.drawString(temporaryIDText,teamSelected ? greenTeamX : redTeamX + pixelsBetweenBoxes, y + boxHeight);
+
 
         //Stored IDs and codenames drawing
         g.setColor(Color.BLACK);
@@ -109,8 +95,8 @@ public class EntryGraphics extends JPanel implements KeyListener
             x = redTeamX;
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
-            int playerID = redTeamIDs[id];
-            if(playerID > -1){
+            if(game.redTeam[id] != null){
+                int playerID = game.redTeam[id].id();
                 g.drawString(Integer.toString(playerID),x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
@@ -121,8 +107,8 @@ public class EntryGraphics extends JPanel implements KeyListener
             x = greenTeamX;
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
-            int playerID = greenTeamIDs[id];
-            if(playerID > -1){
+            if(game.greenTeam[id] != null){
+                int playerID = game.greenTeam[id].id();
                 g.drawString(Integer.toString(playerID),x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
@@ -133,8 +119,8 @@ public class EntryGraphics extends JPanel implements KeyListener
             x = redTeamX + idWidth + pixelsBetweenBoxes;
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
-            String playerName = redTeamNames[id];
-            if(playerName != null){
+            if(game.redTeam[id] != null){
+                String playerName = game.redTeam[id].codename();
                 g.drawString(playerName,x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
@@ -145,88 +131,11 @@ public class EntryGraphics extends JPanel implements KeyListener
             x = greenTeamX + idWidth + pixelsBetweenBoxes;
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
-            String playerName = greenTeamNames[id];
-            if(playerName != null){
+            if(game.greenTeam[id] != null){
+                String playerName = game.greenTeam[id].codename();
                 g.drawString(playerName,x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
 
-    }
-
-    public void keyPressed(KeyEvent ke)
-    {
-        switch(ke.getKeyCode())
-        {
-            case KeyEvent.VK_TAB:
-                try {
-                    if (!editingCodename) {
-                        int playerID = Integer.parseInt(currentEditText);
-                        String playerCodename = game.herokuDB.getCodename(playerID);
-                        if (!teamSelected) {
-                            redTeamIDs[playerSelected] = playerID;
-                            if (playerCodename != "") {
-                                redTeamNames[playerSelected] = playerCodename;
-                                teamSelected = true;
-                            } else {
-                                editingCodename = true;
-                            }
-                            currentEditText = "";
-                        } else {
-                            greenTeamIDs[playerSelected] = playerID;
-                            if (playerCodename != "") {
-                                greenTeamNames[playerSelected] = playerCodename;
-                                teamSelected = false;
-                                playerSelected++;
-                                if (playerSelected > 14) {
-                                    playerSelected = 0;
-                                }
-                            } else {
-                                editingCodename = true;
-                            }
-                            currentEditText = "";
-                        }
-                    } else {
-                        if (!teamSelected) {
-                            int playerID = redTeamIDs[playerSelected];
-                            if (game.herokuDB.addPlayerRecord(playerID, currentEditText)) {
-                                redTeamNames[playerSelected] = currentEditText;
-                                editingCodename = false;
-                                teamSelected = true;
-                                currentEditText = "";
-                            }
-                        } else {
-                            int playerID = greenTeamIDs[playerSelected];
-                            if (game.herokuDB.addPlayerRecord(playerID, currentEditText)) {
-                                greenTeamNames[playerSelected] = currentEditText;
-                                editingCodename = false;
-                                teamSelected = false;
-                                playerSelected++;
-                                if (playerSelected > 14) {
-                                    playerSelected = 0;
-                                }
-                                currentEditText = "";
-                            }
-                        }
-                    }
-                }catch(Exception e){}
-                break;
-        }
-    }
-    public void keyReleased(KeyEvent ke)
-    {
-    }
-    public void keyTyped(KeyEvent ke)
-    {
-        if(!editingCodename){
-            if(acceptableIDchars.indexOf(ke.getKeyChar()) > -1)
-            {
-                currentEditText = currentEditText + ke.getKeyChar();
-            }
-        }else{
-            if(acceptableCodenameChars.indexOf(ke.getKeyChar()) > -1)
-            {
-                currentEditText = currentEditText + ke.getKeyChar();
-            }
-        }
     }
 }
