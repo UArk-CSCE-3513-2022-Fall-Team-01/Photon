@@ -5,18 +5,18 @@ Below is a mermaid-js generated UML class diagram overview of the project in a p
 ```mermaid
 classDiagram-v2
     direction LR
-    BaseController o--* View
+    BaseController o--* BaseView
     BaseController *--o Model
-    Game --* View
-    Model o--* View
+    Game --* BaseView
+    Model o--* BaseView
     Game --* Model
     PlayerDatabase --o Model
     Model o-- Player
     Team o-- Player
     Team --o Model
     Player --> Team
-    View <|-- EntryView
-    View <|-- PlayView
+    BaseView <|-- EntryView
+    BaseView <|-- PlayView
     Splash <.. Game
     ActionListener <|-- BaseController
     KeyListener <|-- BaseController
@@ -35,6 +35,7 @@ classDiagram-v2
         -codename : String
         -score : int
         -team : Team
+        +Player(id : int, codename : String, team : Team)
         +id() int
         +codename() String
         +score() int
@@ -46,30 +47,37 @@ classDiagram-v2
         -score : int
         -name : String
         -players : HashMap~int, Player~
+        +Team(name : String)
         +name() String
         +score() int
         +addToScore(amount : int) void
         +score(score : int) void
-        +addPlayer(player : Player)
+        +addPlayer(player : Player) void
+        +players() Collection~Player~
     }
 
     class Model {
         -teams : ArrayList~Team~
         -players : HashMap~int, Player~
+        +Model()
         +addTeam(team : Team) boolean
-        +addPlayer(player : Player, team : Team) boolean
+        +addPlayer(player : Player, team : Team) void
         +playerHit(attacker : Player, victim : Player) void
+        +startMatch() void
         +readyToStart() boolean
     }
 
-    class View {
-        <<interface/abstract>>
-        +update() void
+    class BaseView {
+        <<abstract>>
+        +BaseView(model : Model, controller : Controller)
+        +EXAMPLE_update() void
+        +TODO()
     }
 
     class BaseController {
-        <<interface/abstract>>
-        BaseController(model Model)
+        <<abstract>>
+        BaseController(model : Model)
+        +TODO()
     }
 
     class EntryController {
