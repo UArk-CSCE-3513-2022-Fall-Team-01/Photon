@@ -3,26 +3,18 @@ package com.team01.photon;
 public class BasicPlayer implements Player {
     private int id;
     private String codename;
-    private boolean isAlive;
     private int score;
 
     public BasicPlayer() {
         this.id = 0;
         this.codename = "Joker";
-        this.isAlive = true;
         this.score = 777;
     }
 
-    public BasicPlayer(int id, String codename, boolean isAlive, int score) {
+    public BasicPlayer(int id, String codename) {
         this.id = id;
         this.codename = codename;
-        this.isAlive = isAlive;
-        this.score = score;
-    }
-
-    @Override
-    public void addScore(int amount) {
-        this.score += amount;
+        this.score = 0;
     }
 
     @Override
@@ -31,37 +23,22 @@ public class BasicPlayer implements Player {
     }
 
     @Override
-    public void codename(String newCodename) {
-        this.codename = newCodename;
-    }
-
-    @Override
-    public void deductScore(int amount) {
-        this.score -= amount;
-    }
-
-    @Override
     public int id() {
-        return this.id;
+        return id;
     }
 
     @Override
     public int score() {
-        return this.score;
+        return score;
     }
 
     @Override
     public void score(int newScore) {
-        this.score = newScore;
+        score = newScore;
     }
 
     @Override
-    public void hit() {
-        this.isAlive = false;
-    }
-
-    @Override
-    public boolean isAlive() {
-        return this.isAlive;
+    public void addToScore(int amount) {
+        score += amount;
     }
 }
