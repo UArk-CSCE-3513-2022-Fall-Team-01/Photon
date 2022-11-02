@@ -1,7 +1,7 @@
 package com.team01.photon;
 import java.util.HashMap;
 
-public class PlayerDatabaseStub implements IPlayerDatabase {
+public class PlayerDatabaseStub implements PlayerDatabase {
     private HashMap<Integer, String> database;
 
     public PlayerDatabaseStub() {

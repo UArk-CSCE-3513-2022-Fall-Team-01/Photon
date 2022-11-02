@@ -1,5 +1,5 @@
 package com.team01.photon;
-public interface IPlayerDatabase {
+public interface PlayerDatabase {
     // Returns the codename is one exists, and an empty string if not
     public String getCodename(int id);
 

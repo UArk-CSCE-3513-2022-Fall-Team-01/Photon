@@ -3,7 +3,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 
-public class HerokuPostgreDatabase implements IPlayerDatabase {
+public class HerokuPostgreDatabase implements PlayerDatabase {
     private URI dbUri;
     private Connection connection;
     private static final String DB_TABLE_NAME = "players";

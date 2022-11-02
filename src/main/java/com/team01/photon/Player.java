@@ -1,5 +1,5 @@
 package com.team01.photon;
-public interface IPlayer {
+public interface Player {
     public int id();
     public String codename();
     public void codename(String newCodename);

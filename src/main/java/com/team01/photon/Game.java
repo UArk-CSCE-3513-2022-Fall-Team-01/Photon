@@ -4,8 +4,8 @@ public class Game extends JFrame
 {
     public EntryGraphics entryScreen;
 
-    public IPlayer[] redTeam;
-    public IPlayer[] greenTeam;
+    public Player[] redTeam;
+    public Player[] greenTeam;
 
     public HerokuPostgreDatabase herokuDB;
 
@@ -31,8 +31,8 @@ public class Game extends JFrame
         this.addKeyListener(entryScreen);
 
         //Set up teams and the Heroku database connection
-        redTeam = new IPlayer[15];
-        greenTeam = new IPlayer[15];
+        redTeam = new Player[15];
+        greenTeam = new Player[15];
         try {
             herokuDB = new HerokuPostgreDatabase("postgres://kpzobqnwpafnyz:c2b612290e4aca89454e4c97e18d21cf0586baabdd41701f9c0162ce24cea4d7@ec2-52-207-90-231.compute-1.amazonaws.com:5432/d48c8dhcuoropm");
         }catch(Exception e){
