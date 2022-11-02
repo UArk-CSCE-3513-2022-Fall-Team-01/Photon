@@ -18,11 +18,9 @@ classDiagram-v2
     BaseView <|-- EntryView
     BaseView <|-- PlayView
     Splash <.. Game
-    ActionListener <|-- BaseController
     KeyListener <|-- BaseController
     Game --* BaseController
 
-    <<interface>> ActionListener
     <<interface>> KeyListener
 
     class Splash {
@@ -83,10 +81,6 @@ classDiagram-v2
     class EntryController {
     }
     BaseController <|-- EntryController
-
-    class PlayController {
-    }
-    BaseController <|-- PlayController
 
     class Game {
         +main(String[] args) void
