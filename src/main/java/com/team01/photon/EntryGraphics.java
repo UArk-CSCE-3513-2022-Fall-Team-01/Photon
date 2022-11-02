@@ -1,8 +1,6 @@
 package com.team01.photon;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.util.Arrays;
 
 public class EntryGraphics extends JPanel
 {

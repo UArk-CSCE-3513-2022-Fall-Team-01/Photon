@@ -4,13 +4,13 @@ import javax.swing.*;
 
 class Splash {
 
-	private final int t; //The time before the splash screen hides
-	
+    private final int t; //The time before the splash screen hides
+    
     public Splash(int time){
-		t = time;
+        t = time;
     }
     public void show(){
-		JFrame frame = new JFrame();
+        JFrame frame = new JFrame();
         frame.setUndecorated(true);                          // Gets rid of the title bar
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setSize(871, 555);                 // Sets the size of the window.
