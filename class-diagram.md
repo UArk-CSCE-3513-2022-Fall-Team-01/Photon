@@ -23,13 +23,9 @@ classDiagram-v2
     class Player {
         +id(): int
         +codename(): String
-        +codename(String newCodename): void
-        +isAlive(): boolean
-        +hit(): void
         +score(): int
         +score(int newScore): void
-        +addScore(int amount): void
-        +deductScore(int amount): void
+        +addToScore(int amount): void
     }
 
     class PlayerDatabase {

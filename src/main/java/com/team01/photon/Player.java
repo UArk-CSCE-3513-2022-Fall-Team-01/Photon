@@ -5,17 +5,9 @@ public interface Player {
 
     public String codename();
 
-    public void codename(String newCodename);
-
-    public boolean isAlive();
-
-    public void hit();
-
     public int score();
 
     public void score(int newScore);
 
-    public void addScore(int amount);
-
-    public void deductScore(int amount);
+    public void addToScore(int newScore);
 }
