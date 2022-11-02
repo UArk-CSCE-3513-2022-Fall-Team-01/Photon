@@ -1,19 +1,25 @@
+# Class Diagram
+
+Below is a mermaid-js generated UML class diagram overview of the project.
+
 ```mermaid
 classDiagram-v2
     Game "1" o-- "*" Player
     Game "1" *-- "1" EntryGraphics
-    Game o-- PlayerDatabase
+    Game "1" o-- "1" HerokuPostgreDatabase
     Game ..> Splash
     Game --|> JFrame
     EntryGraphics --|> JPanel
     EntryGraphics ..|> KeyListener
+    Player <|.. BaiscPlayer
+    PlayerDatabase <|.. HerokuPostgreDatabase
 
     <<interface>> KeyListener
 
     class Game {
         +entryScreen: EntryGraphics
-        +redTeam: IPlayer[]
-        +greenTeam: IPlayer[]
+        +redTeam: Player[]
+        +greenTeam: Player[]
         +herokuDB: HerokuPostgreDatabase
         +Game()
         +run(): void
@@ -21,21 +27,22 @@ classDiagram-v2
     }
 
     class Player {
+        <<interface>>
         +id(): int
         +codename(): String
         +score(): int
-        +score(int newScore): void
-        +addToScore(int amount): void
+        +score(newScore: int): void
+        +addToScore(amount: int): void
     }
 
     class PlayerDatabase {
-        +getCodename(int id): String
-        +addPlayerRecord(int id, String codename): boolean
+        +getCodename(id: int): String
+        +addPlayerRecord(id: int, codename: String): boolean
     }
 
     class Splash {
         -t: int
-        +Splash(int time)
+        +Splash(time: int)
         +show(): void
     }
 
