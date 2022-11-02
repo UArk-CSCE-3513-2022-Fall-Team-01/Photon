@@ -5,9 +5,9 @@ Below is a mermaid-js generated UML class diagram overview of the project in a p
 ```mermaid
 classDiagram-v2
     direction LR
-    BaseController o--* BaseView
-    BaseController *--o Model
+    EntryController o--* EntryView
     Game --* BaseView
+    Model --* BaseView
     Model o--* BaseView
     Game --* Model
     PlayerDatabase --o Model
@@ -18,8 +18,8 @@ classDiagram-v2
     BaseView <|-- EntryView
     BaseView <|-- PlayView
     Splash <.. Game
-    KeyListener <|-- BaseController
-    Game --* BaseController
+    KeyListener <|-- EntryController
+    Game --* EntryController
 
     <<interface>> KeyListener
 
@@ -67,20 +67,19 @@ classDiagram-v2
 
     class BaseView {
         <<abstract>>
-        +BaseView(model : Model, controller : Controller)
+        +BaseView(model : Model, controller : EntryController)
         +EXAMPLE_update() void
         +TODO()
     }
 
-    class BaseController {
-        <<abstract>>
-        BaseController(model : Model)
+    class PlayView {
         +TODO()
     }
 
     class EntryController {
+        EntryController(model : Model)
+        +TODO()
     }
-    BaseController <|-- EntryController
 
     class Game {
         +main(String[] args) void
