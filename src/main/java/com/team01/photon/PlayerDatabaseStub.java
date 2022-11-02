@@ -1,4 +1,5 @@
 package com.team01.photon;
+
 import java.util.HashMap;
 
 public class PlayerDatabaseStub implements PlayerDatabase {
@@ -30,5 +31,5 @@ public class PlayerDatabaseStub implements PlayerDatabase {
 
         return result;
     }
-    
+
 }

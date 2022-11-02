@@ -1,4 +1,5 @@
 package com.team01.photon;
+
 public class BasicPlayer implements Player {
     private int id;
     private String codename;

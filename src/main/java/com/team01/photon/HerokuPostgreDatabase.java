@@ -1,4 +1,5 @@
 package com.team01.photon;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
@@ -27,7 +28,7 @@ public class HerokuPostgreDatabase implements PlayerDatabase {
 
         try (Statement statement = this.connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM " + DB_TABLE_NAME
-                + " WHERE ID = " + id + ";");
+                    + " WHERE ID = " + id + ";");
 
             if (resultSet.next()) {
                 result = resultSet.getString("Codename");
@@ -46,7 +47,7 @@ public class HerokuPostgreDatabase implements PlayerDatabase {
     public boolean addPlayerRecord(int id, String codename) {
         boolean result = false;
         String sql = "INSERT INTO " + DB_TABLE_NAME + " (ID, CODENAME)"
-            + " VALUES (" + id + ", '" + codename + "')";
+                + " VALUES (" + id + ", '" + codename + "')";
 
         if (getCodename(id).isBlank()) {
             try (Statement statement = this.connection.createStatement()) {
@@ -69,17 +70,18 @@ public class HerokuPostgreDatabase implements PlayerDatabase {
         this.connection = getConnection(this.dbUri);
     }
 
-    // Using Heroku's DATABASE_URL with PostgreSQL JDBC requires some formatting of the string
+    // Using Heroku's DATABASE_URL with PostgreSQL JDBC requires some formatting of
+    // the string
     private String formatDbUrl(URI dbUri) {
         return "jdbc:postgresql://" + dbUri.getHost() + ':'
-            + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+                + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
     }
 
     private Connection getConnection(URI dbUri) throws SQLException {
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = formatDbUrl(dbUri);
-        
+
         return DriverManager.getConnection(dbUrl, username, password);
     }
 }
