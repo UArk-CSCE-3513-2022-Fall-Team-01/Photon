@@ -36,6 +36,7 @@ classDiagram-v2
     }
 
     class PlayerDatabase {
+        <<interface>>
         +getCodename(id: int): String
         +addPlayerRecord(id: int, codename: String): boolean
     }
