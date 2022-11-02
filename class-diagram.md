@@ -4,17 +4,13 @@ Below is a mermaid-js generated UML class diagram overview of the project.
 
 ```mermaid
 classDiagram-v2
-    Game "1" o-- "*" Player
-    Game "1" *-- "1" EntryGraphics
-    Game "1" o-- "1" HerokuPostgreDatabase
-    Game ..> Splash
-    Game --|> JFrame
-    EntryGraphics --|> JPanel
-    EntryGraphics ..|> KeyListener
-    Player <|.. BaiscPlayer
+    direction LR
+    Game o-- Player
+    Game *-- EntryGraphics
+    Game o-- PlayerDatabase
+    Splash <.. Game
+    Player <|.. BasicPlayer
     PlayerDatabase <|.. HerokuPostgreDatabase
-
-    <<interface>> KeyListener
 
     class Game {
         +entryScreen: EntryGraphics
@@ -36,7 +32,6 @@ classDiagram-v2
     }
 
     class PlayerDatabase {
-        <<interface>>
         +getCodename(id: int): String
         +addPlayerRecord(id: int, codename: String): boolean
     }
