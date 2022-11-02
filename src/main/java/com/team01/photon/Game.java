@@ -11,7 +11,7 @@ public class Game extends JFrame
     public Player[] greenTeam;
     private int greenPlayerCount;
 
-    public HerokuPostgreDatabase herokuDB;
+    public PlayerDatabase herokuDB;
 
     public Game()
     {
