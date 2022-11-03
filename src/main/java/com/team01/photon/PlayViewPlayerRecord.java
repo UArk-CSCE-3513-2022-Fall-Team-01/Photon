@@ -20,6 +20,7 @@ public class PlayViewPlayerRecord extends PlayViewPanel {
         c.anchor = GridBagConstraints.LINE_START;
         c.gridx = 0;
         c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 1;
         c.ipady = 1;
         c.weightx = 1.0;
@@ -28,6 +29,7 @@ public class PlayViewPlayerRecord extends PlayViewPanel {
 
         c.anchor = GridBagConstraints.LINE_END;
         c.gridx = 1;
+        c.fill = GridBagConstraints.NONE;
         c.weightx = 0.0;
 
         add(score, c);
