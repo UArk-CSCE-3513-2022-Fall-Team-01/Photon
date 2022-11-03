@@ -14,7 +14,7 @@ public class PlayerPanel extends BasePanel {
         super(new GridBagLayout());
 
         name = new PlayerNameLabel(lorem, Constants.FG_COLOR, SwingConstants.LEADING);
-        score = new PlayerScoreLabel(Constants.FG_COLOR, SwingConstants.LEADING);
+        score = new PlayerScoreLabel(0, Constants.FG_COLOR, SwingConstants.LEADING);
 
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.LINE_START;
