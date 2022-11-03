@@ -1,10 +1,10 @@
-package com.team01.photon;
+package com.team01.photon.PlayView;
 
 import java.awt.Color;
 import java.awt.Font;
 
-public final class PlayViewConstants {
-    private PlayViewConstants() {
+public final class Constants {
+    private Constants() {
         // Hide constructor, class only contains static constants
     }
     private static final float EMPHASIZE = (float)1.2;

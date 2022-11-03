@@ -1,17 +1,17 @@
-package com.team01.photon;
+package com.team01.photon.PlayView;
 
 import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public abstract class PlayViewLabel extends JLabel {
+public abstract class BaseLabel extends JLabel {
 
-    protected PlayViewLabel(String text, Color color, int alignment) {
+    protected BaseLabel(String text, Color color, int alignment) {
         super(text, alignment);
 
         setForeground(color);
-        setFont(PlayViewConstants.BASE_FONT);
+        setFont(Constants.BASE_FONT);
         setVerticalAlignment(SwingConstants.CENTER);
     }
 }

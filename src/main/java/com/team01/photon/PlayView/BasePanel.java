@@ -1,17 +1,17 @@
-package com.team01.photon;
+package com.team01.photon.PlayView;
 
 import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-public abstract class PlayViewPanel extends JPanel {
+public abstract class BasePanel extends JPanel {
 
-    protected PlayViewPanel(LayoutManager layoutManager) {
+    protected BasePanel(LayoutManager layoutManager) {
         super(layoutManager);
         setOpaque(false);
     }
 
-    protected PlayViewPanel() {
+    protected BasePanel() {
         super();
         setOpaque(false);
     }

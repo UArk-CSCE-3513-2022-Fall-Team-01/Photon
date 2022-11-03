@@ -1,15 +1,15 @@
-package com.team01.photon;
+package com.team01.photon.PlayView;
 
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class PlayViewScoreLabel extends PlayViewLabel {
+public class ScoreLabel extends BaseLabel {
     private static final String SCORE_FORMAT = "%5s";
 
-    public PlayViewScoreLabel(Color color, int alignment) {
+    public ScoreLabel(Color color, int alignment) {
         super(formatScore(0), color, alignment);
 
-        setFont(PlayViewConstants.SMALL_MONO_FONT);
+        setFont(Constants.SMALL_MONO_FONT);
     }
 
     // Constrain this label to only ever be its preferred size via these two overrides

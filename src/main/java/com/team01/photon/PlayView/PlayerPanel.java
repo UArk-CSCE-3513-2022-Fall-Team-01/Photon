@@ -1,20 +1,20 @@
-package com.team01.photon;
+package com.team01.photon.PlayView;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.SwingConstants;
 
-public class PlayViewPlayerRecord extends PlayViewPanel {
-    private final PlayViewNameLabel name;
-    private PlayViewScoreLabel score;
+public class PlayerPanel extends BasePanel {
+    private final NameLabel name;
+    private ScoreLabel score;
     private static final String lorem = "Placeholder";
 
-    public PlayViewPlayerRecord() {
+    public PlayerPanel() {
         super(new GridBagLayout());
 
-        name = new PlayViewNameLabel(lorem, PlayViewConstants.FG_COLOR, SwingConstants.LEADING);
-        score = new PlayViewScoreLabel(PlayViewConstants.FG_COLOR, SwingConstants.LEADING);
+        name = new NameLabel(lorem, Constants.FG_COLOR, SwingConstants.LEADING);
+        score = new ScoreLabel(Constants.FG_COLOR, SwingConstants.LEADING);
 
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.LINE_START;
