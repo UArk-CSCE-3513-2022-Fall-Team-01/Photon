@@ -34,10 +34,6 @@ public class PlayViewPlayerRecord extends PlayViewPanel {
 
         add(score, c);
     }
-    // TODO: This will contain a PlayerNameLabel and a PlayViewScoreLabel together
-    // Optionally make it switchable from LTR and RTL for different side of board
-    // Should be doable, I think I saw a method just for doing that. Otherwise, change
-    // up the constraints used
 
-
+    // TODO: Test out flipping the orientation. It should work if using setComponentOrientation
 }
