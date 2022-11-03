@@ -25,7 +25,6 @@ public class PlayView extends JFrame {
 
         setPreferredSize(DEFAULT_SIZE);
         setMinimumSize(DEFAULT_SIZE);
-        setSize(DEFAULT_SIZE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(PlayViewConstants.BG_COLOR);
     }
