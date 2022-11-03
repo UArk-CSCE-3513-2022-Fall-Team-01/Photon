@@ -7,9 +7,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class PlayView extends JFrame {
-    private static final Dimension size = new Dimension(1280, 720);
+    private static final Dimension DEFAULT_SIZE = new Dimension(1280, 720);
     private static final String DEFAULT_TITLE = "Photon: Game Action";
-    private static final Color BG_COLOR = Color.BLACK;
 
     private Model model;
     private Controller controller;
@@ -24,9 +23,9 @@ public class PlayView extends JFrame {
         this.model = model;
         this.controller = controller;
 
-        setPreferredSize(size);
-        setMinimumSize(size);
-        setSize(size);
+        setPreferredSize(DEFAULT_SIZE);
+        setMinimumSize(DEFAULT_SIZE);
+        setSize(DEFAULT_SIZE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(BG_COLOR);
     }
