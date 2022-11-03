@@ -3,10 +3,10 @@ package team01.photon.playview;
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class ScoreLabel extends BaseLabel {
+public class PlayerScoreLabel extends BaseLabel {
     private static final String SCORE_FORMAT = "%5s";
 
-    public ScoreLabel(Color color, int alignment) {
+    public PlayerScoreLabel(Color color, int alignment) {
         super(formatScore(0), color, alignment);
 
         setFont(Constants.SMALL_MONO_FONT);

@@ -6,15 +6,15 @@ import java.awt.GridBagLayout;
 import javax.swing.SwingConstants;
 
 public class PlayerPanel extends BasePanel {
-    private final NameLabel name;
-    private ScoreLabel score;
+    private final PlayerNameLabel name;
+    private PlayerScoreLabel score;
     private static final String lorem = "Placeholder";
 
     public PlayerPanel() {
         super(new GridBagLayout());
 
-        name = new NameLabel(lorem, Constants.FG_COLOR, SwingConstants.LEADING);
-        score = new ScoreLabel(Constants.FG_COLOR, SwingConstants.LEADING);
+        name = new PlayerNameLabel(lorem, Constants.FG_COLOR, SwingConstants.LEADING);
+        score = new PlayerScoreLabel(Constants.FG_COLOR, SwingConstants.LEADING);
 
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.LINE_START;
