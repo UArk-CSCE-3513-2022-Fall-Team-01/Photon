@@ -5,16 +5,26 @@ import java.awt.GridBagLayout;
 
 import javax.swing.SwingConstants;
 
+import team01.photon.Player;
+
 public class PlayerPanel extends BasePanel {
-    private final PlayerNameLabel name;
-    private PlayerScoreLabel score;
-    private static final String lorem = "Placeholder";
+    private transient PlayerNameLabel name;
+    private transient PlayerScoreLabel score;
+    private static final String PLACEHOLDER = "Player";
 
     public PlayerPanel() {
+        this(PLACEHOLDER, 0);
+    }
+
+    public PlayerPanel(Player player) {
+        this(player.codename(), player.score());
+    }
+
+    public PlayerPanel(String name, int score) {
         super(new GridBagLayout());
 
-        name = new PlayerNameLabel(lorem, Constants.FG_COLOR, SwingConstants.LEADING);
-        score = new PlayerScoreLabel(0, Constants.FG_COLOR, SwingConstants.LEADING);
+        this.name = new PlayerNameLabel(name, Constants.FG_COLOR, SwingConstants.LEADING);
+        this.score = new PlayerScoreLabel(score, Constants.FG_COLOR, SwingConstants.LEADING);
 
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.LINE_START;
@@ -25,14 +35,22 @@ public class PlayerPanel extends BasePanel {
         c.ipady = 1;
         c.weightx = 1.0;
 
-        add(name, c);
+        add(this.name, c);
 
         c.anchor = GridBagConstraints.LINE_END;
         c.gridx = 1;
         c.fill = GridBagConstraints.NONE;
         c.weightx = 0.0;
 
-        add(score, c);
+        add(this.score, c);
+    }
+
+    public void setPlayerName(String name) {
+        this.name.setText(name);
+    }
+
+    public void setPlayerScore(int score) {
+        this.score.setScore(score);
     }
 
     // TODO: Test out flipping the orientation. It should work if using
