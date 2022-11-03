@@ -35,5 +35,6 @@ public class PlayerPanel extends BasePanel {
         add(score, c);
     }
 
-    // TODO: Test out flipping the orientation. It should work if using setComponentOrientation
+    // TODO: Test out flipping the orientation. It should work if using
+    // setComponentOrientation
 }

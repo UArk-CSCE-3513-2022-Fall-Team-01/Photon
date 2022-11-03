@@ -1,14 +1,12 @@
 package team01.photon.playview;
 
+import java.awt.Dimension;
+import java.awt.HeadlessException;
+
 import javax.swing.JFrame;
 
 import team01.photon.Controller;
 import team01.photon.Model;
-
-import java.awt.Dimension;
-import java.awt.HeadlessException;
-import java.awt.Color;
-import java.awt.Graphics;
 
 public class MainView extends JFrame {
     private static final Dimension DEFAULT_SIZE = new Dimension(1280, 720);

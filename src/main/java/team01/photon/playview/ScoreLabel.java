@@ -12,7 +12,8 @@ public class ScoreLabel extends BaseLabel {
         setFont(Constants.SMALL_MONO_FONT);
     }
 
-    // Constrain this label to only ever be its preferred size via these two overrides
+    // Constrain this label to only ever be its preferred size via these two
+    // overrides
     @Override
     public Dimension getMinimumSize() {
         return getPreferredSize();

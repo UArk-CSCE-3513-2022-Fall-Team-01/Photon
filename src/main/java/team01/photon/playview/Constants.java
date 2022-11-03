@@ -7,8 +7,9 @@ public final class Constants {
     private Constants() {
         // Hide constructor, class only contains static constants
     }
-    private static final float EMPHASIZE = (float)1.2;
-    private static final float DE_EMPHASIZE = (float)0.8;
+
+    private static final float EMPHASIZE = (float) 1.2;
+    private static final float DE_EMPHASIZE = (float) 0.8;
 
     public static final int BASE_FONT_SIZE = 28;
     public static final float BIG_FONT_SIZE = BASE_FONT_SIZE * EMPHASIZE;
