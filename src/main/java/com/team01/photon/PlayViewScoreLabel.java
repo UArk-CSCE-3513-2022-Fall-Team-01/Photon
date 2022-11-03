@@ -8,6 +8,8 @@ public class PlayViewScoreLabel extends PlayViewLabel {
 
     public PlayViewScoreLabel(Color color, int alignment) {
         super(formatScore(0), color, alignment);
+
+        setFont(PlayViewConstants.SMALL_MONO_FONT);
     }
 
     // Constrain this label to only ever be its preferred size via these two overrides
