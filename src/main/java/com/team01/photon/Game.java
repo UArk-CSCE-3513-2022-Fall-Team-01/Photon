@@ -4,7 +4,7 @@ import javax.swing.*;
 public class Game extends JFrame
 {
     public EntryGraphics entryScreen;
-    public Controller controller;
+    public EntryController controller;
 
     public Player[] redTeam;
     private int redPlayerCount;
@@ -19,7 +19,7 @@ public class Game extends JFrame
         int frameH = 1000;
 
         entryScreen = new EntryGraphics(this,frameW,frameH);
-        controller = new Controller(this,entryScreen);
+        controller = new EntryController(this,entryScreen);
 
         //JFrame settings
         this.setTitle("Photon");

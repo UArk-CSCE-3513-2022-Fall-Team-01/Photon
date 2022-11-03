@@ -1,0 +1,33 @@
+package com.team01.photon;
+
+import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.awt.HeadlessException;
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class PlayView extends JFrame {
+    private static final Dimension size = new Dimension(1280, 720);
+    private static final String DEFAULT_TITLE = "Photon: Game Action";
+    private static final Color BG_COLOR = Color.BLACK;
+
+    private Model model;
+    private Controller controller;
+
+    public PlayView(Model model, Controller controller) {
+        this(DEFAULT_TITLE, model, controller);
+    }
+
+    public PlayView(String title, Model model, Controller controller) throws HeadlessException {
+        super(title);
+
+        this.model = model;
+        this.controller = controller;
+
+        setPreferredSize(size);
+        setMinimumSize(size);
+        setSize(size);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setBackground(BG_COLOR);
+    }
+}
