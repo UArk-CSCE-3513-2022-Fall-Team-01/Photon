@@ -1,4 +1,4 @@
-package team01.photon.PlayView;
+package team01.photon.playview;
 
 import javax.swing.JFrame;
 

@@ -4,8 +4,8 @@ import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 
-import team01.photon.PlayView.MainView;
-import team01.photon.PlayView.PlayerPanel;
+import team01.photon.playview.MainView;
+import team01.photon.playview.PlayerPanel;
 
 public class SwingTest {
     public static void main(String[] args) {
