@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class PlayViewNameLabel extends PlayViewLabel {
 
-    public PlayViewNameLabel(String text, Color color, int alignment) {
-        super(text, color, alignment);
+    public PlayViewNameLabel(String name, Color color, int alignment) {
+        super(name, color, alignment);
     }
 }
