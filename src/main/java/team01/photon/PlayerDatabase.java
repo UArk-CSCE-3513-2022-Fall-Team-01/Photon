@@ -1,4 +1,4 @@
-package com.team01.photon;
+package team01.photon;
 
 public interface PlayerDatabase {
     // Returns the codename is one exists, and an empty string if not
