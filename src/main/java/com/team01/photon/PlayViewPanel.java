@@ -4,13 +4,13 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-public class PlayViewPanel extends JPanel {
+public abstract class PlayViewPanel extends JPanel {
 
-    public PlayViewPanel(LayoutManager layoutManager) {
+    protected PlayViewPanel(LayoutManager layoutManager) {
         super(layoutManager);
     }
 
-    public PlayViewPanel() {
+    protected PlayViewPanel() {
         super();
     }
 
