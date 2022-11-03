@@ -7,8 +7,9 @@ import javax.swing.JFrame;
 
 import team01.photon.Controller;
 import team01.photon.Model;
+import team01.photon.View;
 
-public class MainView extends JFrame {
+public class MainView extends JFrame implements View {
     private static final Dimension DEFAULT_SIZE = new Dimension(1280, 720);
     private static final String DEFAULT_TITLE = "Photon: Game Action";
 
@@ -29,5 +30,11 @@ public class MainView extends JFrame {
         setMinimumSize(DEFAULT_SIZE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(Constants.BG_COLOR);
+    }
+
+    @Override
+    public void update() {
+        // TODO Auto-generated method stub
+        
     }
 }
