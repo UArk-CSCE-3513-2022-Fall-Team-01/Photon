@@ -1,4 +1,4 @@
-package com.team01.photon;
+package team01.photon;
 
 public interface Model {
     public void addTeam(Team team);

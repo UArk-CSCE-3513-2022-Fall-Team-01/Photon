@@ -1,4 +1,4 @@
-package com.team01.photon;
+package team01.photon;
 import java.awt.event.*;
 
 public class EntryController implements KeyListener {

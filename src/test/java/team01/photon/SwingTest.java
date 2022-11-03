@@ -1,11 +1,11 @@
-package com.team01.photon;
+package team01.photon;
 
 import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 
-import com.team01.photon.PlayView.MainView;
-import com.team01.photon.PlayView.PlayerPanel;
+import team01.photon.PlayView.MainView;
+import team01.photon.PlayView.PlayerPanel;
 
 public class SwingTest {
     public static void main(String[] args) {

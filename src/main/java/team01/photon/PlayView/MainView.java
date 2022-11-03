@@ -1,9 +1,9 @@
-package com.team01.photon.PlayView;
+package team01.photon.PlayView;
 
 import javax.swing.JFrame;
 
-import com.team01.photon.Controller;
-import com.team01.photon.Model;
+import team01.photon.Controller;
+import team01.photon.Model;
 
 import java.awt.Dimension;
 import java.awt.HeadlessException;

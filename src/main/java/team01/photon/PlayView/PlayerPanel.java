@@ -1,4 +1,4 @@
-package com.team01.photon.PlayView;
+package team01.photon.PlayView;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
