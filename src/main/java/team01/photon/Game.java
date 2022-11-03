@@ -1,4 +1,4 @@
-package com.team01.photon;
+package team01.photon;
 import javax.swing.*;
 
 public class Game extends JFrame
