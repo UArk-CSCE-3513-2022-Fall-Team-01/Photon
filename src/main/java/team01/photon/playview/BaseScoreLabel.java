@@ -6,7 +6,7 @@ import java.awt.Dimension;
 public abstract class BaseScoreLabel extends BaseLabel {
     private static final String SCORE_FORMAT = "%5s";
 
-    public BaseScoreLabel(int score, Color color, int alignment) {
+    protected BaseScoreLabel(int score, Color color, int alignment) {
         super(formatScore(score), color, alignment);
 
         setFont(Constants.MONO_FONT);
