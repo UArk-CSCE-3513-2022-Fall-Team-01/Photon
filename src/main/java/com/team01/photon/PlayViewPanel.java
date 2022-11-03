@@ -8,10 +8,12 @@ public abstract class PlayViewPanel extends JPanel {
 
     protected PlayViewPanel(LayoutManager layoutManager) {
         super(layoutManager);
+        setOpaque(false);
     }
 
     protected PlayViewPanel() {
         super();
+        setOpaque(false);
     }
 
 }

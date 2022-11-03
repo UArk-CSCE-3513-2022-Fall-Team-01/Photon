@@ -17,10 +17,6 @@ public class PlayViewScoreLabel extends PlayViewLabel {
     public Dimension getMinimumSize() {
         return getPreferredSize();
     }
-    @Override
-    public Dimension getMaximumSize() {
-        return getPreferredSize();
-    }
 
     // Use this instead of setText
     public void setScore(int score) {
