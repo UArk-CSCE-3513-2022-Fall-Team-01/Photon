@@ -8,6 +8,8 @@ public class TeamNameLabel extends BaseLabel {
         super(text, color, alignment);
 
         setFont(Constants.BIG_FONT);
+
+        setAlignmentX(CENTER_ALIGNMENT);
     }
     
 }

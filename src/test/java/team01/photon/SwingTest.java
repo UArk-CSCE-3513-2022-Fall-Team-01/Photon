@@ -1,47 +1,31 @@
 package team01.photon;
 
-import java.awt.GridLayout;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 
 import team01.photon.playview.MainView;
-import team01.photon.playview.PlayerPanel;
+import team01.photon.playview.TeamPane;
 
 public class SwingTest {
     public static void main(String[] args) {
         MainView view = new MainView(null, null);
-        GridLayout layout = new GridLayout(15, 2);
-        view.setLayout(layout);
 
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
+        view.setLayout(new BoxLayout(view.getContentPane(), BoxLayout.LINE_AXIS));
 
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
-        view.add(new PlayerPanel());
+        TeamPane tmp;
+
+        tmp = new TeamPane();
+        tmp.addPlaceholderTeam();
+        view.add(tmp);
+
+        view.add(Box.createRigidArea(new Dimension(427, 0)));
+
+        tmp = new TeamPane();
+        tmp.addPlaceholderTeam();
+        view.add(tmp);
 
         view.setVisible(true);
     }
