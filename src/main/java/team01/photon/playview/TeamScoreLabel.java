@@ -9,5 +9,5 @@ public class TeamScoreLabel extends BaseScoreLabel {
 
         setFont(Constants.MONO_FONT);
     }
-    
+
 }

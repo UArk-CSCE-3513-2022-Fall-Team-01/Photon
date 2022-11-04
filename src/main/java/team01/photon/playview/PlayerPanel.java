@@ -1,8 +1,7 @@
 package team01.photon.playview;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 
 import team01.photon.Player;
@@ -21,28 +20,15 @@ public class PlayerPanel extends BasePanel {
     }
 
     public PlayerPanel(String name, int score) {
-        super(new GridBagLayout());
+        super();
+        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 
         this.name = new PlayerNameLabel(name, Constants.FG_COLOR, SwingConstants.LEADING);
         this.score = new PlayerScoreLabel(score, Constants.FG_COLOR, SwingConstants.LEADING);
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 1;
-        c.ipady = 1;
-        c.weightx = 1.0;
-
-        add(this.name, c);
-
-        c.anchor = GridBagConstraints.LINE_END;
-        c.gridx = 1;
-        c.fill = GridBagConstraints.NONE;
-        c.weightx = 0.0;
-
-        add(this.score, c);
+        add(this.name);
+        add(Box.createHorizontalGlue());
+        add(this.score);
     }
 
     public void setPlayerName(String name) {

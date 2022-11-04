@@ -1,6 +1,5 @@
 package team01.photon.playview;
 
-import java.awt.Container;
 import java.util.Collection;
 
 import javax.swing.Box;

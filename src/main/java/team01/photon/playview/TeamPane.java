@@ -19,8 +19,8 @@ public class TeamPane extends BasePanel {
         add(new PlayerRosterPanel(team.players()));
     }
 
-    public void addPlaceholderTeam() {
-        add(new TeamNameLabel("Placeholder Team", Color.GREEN, SwingConstants.CENTER));
+    public void addPlaceholderTeam(Color color) {
+        add(new TeamNameLabel("Placeholder Team", color, SwingConstants.CENTER));
 
         PlayerRosterPanel tmp = new PlayerRosterPanel();
         tmp.addPlaceholderPlayers();

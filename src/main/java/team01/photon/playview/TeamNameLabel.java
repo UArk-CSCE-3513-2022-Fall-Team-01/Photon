@@ -11,5 +11,5 @@ public class TeamNameLabel extends BaseLabel {
 
         setAlignmentX(CENTER_ALIGNMENT);
     }
-    
+
 }

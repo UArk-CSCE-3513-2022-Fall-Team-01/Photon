@@ -1,7 +1,6 @@
 package team01.photon.playview;
 
 import java.awt.Color;
-import java.awt.Dimension;
 
 public abstract class BaseScoreLabel extends BaseLabel {
     private static final String SCORE_FORMAT = "%5s";
@@ -10,12 +9,7 @@ public abstract class BaseScoreLabel extends BaseLabel {
         super(formatScore(score), color, alignment);
 
         setFont(Constants.MONO_FONT);
-    }
-
-    // Constrain label's minimum to match it's preference
-    @Override
-    public Dimension getMinimumSize() {
-        return getPreferredSize();
+        setAlignmentX(CENTER_ALIGNMENT);
     }
 
     // Use this instead of setText

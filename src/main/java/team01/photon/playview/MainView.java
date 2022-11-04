@@ -35,6 +35,6 @@ public class MainView extends JFrame implements View {
     @Override
     public void update() {
         // TODO Auto-generated method stub
-        
+
     }
 }
