@@ -1,13 +1,19 @@
 package team01.photon;
 
+import javax.swing.event.ChangeListener;
+
 public interface Player {
-    public int id();
+    public int getId();
 
-    public String codename();
+    public String getCodename();
 
-    public int score();
+    public int getScore();
 
-    public void score(int newScore);
+    public void setScore(int newScore);
 
     public void addToScore(int newScore);
+
+    public void addChangeListener(ChangeListener listener);
+
+    public void clearChangeListeners();
 }

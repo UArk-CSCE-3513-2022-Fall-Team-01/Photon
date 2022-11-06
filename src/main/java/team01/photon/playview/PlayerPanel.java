@@ -16,7 +16,7 @@ public class PlayerPanel extends BasePanel {
     }
 
     public PlayerPanel(Player player) {
-        this(player.codename(), player.score());
+        this(player.getCodename(), player.getScore());
     }
 
     public PlayerPanel(String name, int score) {

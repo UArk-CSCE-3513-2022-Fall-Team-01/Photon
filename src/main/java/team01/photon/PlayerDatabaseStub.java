@@ -15,7 +15,7 @@ public class PlayerDatabaseStub implements PlayerDatabase {
     }
 
     @Override
-    public String getCodename(int id) {
+    public String getCodenameById(int id) {
         return database.get(id);
     }
 

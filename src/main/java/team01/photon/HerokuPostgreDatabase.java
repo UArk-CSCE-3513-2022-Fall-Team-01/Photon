@@ -23,7 +23,7 @@ public class HerokuPostgreDatabase implements PlayerDatabase {
     }
 
     @Override
-    public String getCodename(int id) {
+    public String getCodenameById(int id) {
         String result = "";
 
         try (Statement statement = this.connection.createStatement()) {
@@ -49,12 +49,12 @@ public class HerokuPostgreDatabase implements PlayerDatabase {
         String sql = "INSERT INTO " + DB_TABLE_NAME + " (ID, CODENAME)"
                 + " VALUES (" + id + ", '" + codename + "')";
 
-        if (getCodename(id).isBlank()) {
+        if (getCodenameById(id).isBlank()) {
             try (Statement statement = this.connection.createStatement()) {
                 statement.executeUpdate(sql);
 
                 // Since we should've just created the record, lookup again to confirm
-                if (!getCodename(id).isBlank()) {
+                if (!getCodenameById(id).isBlank()) {
                     result = true;
                 }
             } catch (SQLException e) {

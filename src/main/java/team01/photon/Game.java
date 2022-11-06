@@ -75,13 +75,13 @@ public class Game extends JFrame
 
     //Team Player Management functions
     public boolean ExistsInDatabase(int id){
-        return (herokuDB.getCodename(id) != "");
+        return (herokuDB.getCodenameById(id) != "");
     }
     public void AddToDatabase(int id, String codename){
         herokuDB.addPlayerRecord(id,codename);
     }
     public void AddToTeamByID(int id, boolean team){
-        String codename = herokuDB.getCodename(id);
+        String codename = herokuDB.getCodenameById(id);
 
         if(team){ //Green team = true
             greenTeam[greenPlayerCount] = new BasicPlayer(id,codename);
@@ -93,10 +93,10 @@ public class Game extends JFrame
     }
     public boolean IsIDAlreadyEntered(int id){
         for(int p = 0; p < 15; p++){
-            if(redTeam[p] != null && redTeam[p].id() == id) return true;
+            if(redTeam[p] != null && redTeam[p].getId() == id) return true;
         }
         for(int p = 0; p < 15; p++){
-            if(greenTeam[p] != null && greenTeam[p].id() == id) return true;
+            if(greenTeam[p] != null && greenTeam[p].getId() == id) return true;
         }
         return false;
     }

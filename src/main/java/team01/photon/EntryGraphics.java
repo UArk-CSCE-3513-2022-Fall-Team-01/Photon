@@ -94,7 +94,7 @@ public class EntryGraphics extends JPanel
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
             if(game.redTeam[id] != null){
-                int playerID = game.redTeam[id].id();
+                int playerID = game.redTeam[id].getId();
                 g.drawString(Integer.toString(playerID),x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
@@ -106,7 +106,7 @@ public class EntryGraphics extends JPanel
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
             if(game.greenTeam[id] != null){
-                int playerID = game.greenTeam[id].id();
+                int playerID = game.greenTeam[id].getId();
                 g.drawString(Integer.toString(playerID),x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
@@ -118,7 +118,7 @@ public class EntryGraphics extends JPanel
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
             if(game.redTeam[id] != null){
-                String playerName = game.redTeam[id].codename();
+                String playerName = game.redTeam[id].getCodename();
                 g.drawString(playerName,x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
@@ -130,7 +130,7 @@ public class EntryGraphics extends JPanel
             y = startingY + id*(pixelsBetweenBoxes+boxHeight);
 
             if(game.greenTeam[id] != null){
-                String playerName = game.greenTeam[id].codename();
+                String playerName = game.greenTeam[id].getCodename();
                 g.drawString(playerName,x + pixelsBetweenBoxes, y + boxHeight);
             }
         }
