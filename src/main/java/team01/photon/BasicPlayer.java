@@ -13,13 +13,13 @@ public class BasicPlayer implements Player {
 
     public BasicPlayer() {
         this(0, "Joker");
-        listeners = new EventListenerList();
     }
 
     public BasicPlayer(int id, String codename) {
         this.id = id;
         this.codename = codename;
         this.score = 0;
+        listeners = new EventListenerList();
     }
 
     @Override
