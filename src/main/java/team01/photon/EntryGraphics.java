@@ -2,6 +2,9 @@ package team01.photon;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import team01.photon.playview.MainView;
+
 import java.util.Arrays;
 
 public class EntryGraphics extends JPanel implements KeyListener
@@ -157,6 +160,8 @@ public class EntryGraphics extends JPanel implements KeyListener
     {
         switch(ke.getKeyCode())
         {
+            case KeyEvent.VK_F1:
+                System.exit(1);
             case KeyEvent.VK_TAB:
                 try {
                     if (!editingCodename) {
@@ -208,9 +213,10 @@ public class EntryGraphics extends JPanel implements KeyListener
                             }
                         }
                     }
-                }catch(Exception e){}
-                break;
-        }
+                }
+                catch(Exception e){}
+                    break;
+                }
     }
 
     public void keyReleased(KeyEvent ke)
