@@ -34,3 +34,4 @@ To "play" the game, do the following
 4. Press tab
 5. If the ID is not in use, type a codename to be assigned to the ID
 6. Press tab again to go to the next player slot
+7. Press f5 key once all players have been input to switch to the next game scene
