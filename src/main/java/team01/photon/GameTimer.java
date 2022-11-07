@@ -10,4 +10,6 @@ public interface GameTimer extends ChangeNotifier {
     public void setTime(Duration time);
 
     public void setTime(int seconds);
+
+    public void start();
 }
