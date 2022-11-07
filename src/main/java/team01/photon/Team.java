@@ -1,4 +1,5 @@
 package team01.photon;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Team{
@@ -32,7 +33,7 @@ public class Team{
     public void removePlayer(int key){
         players.remove(key);
     }
-    public void getPlayers(){
-        players.values();
+    public Collection<Player> getPlayers(){
+        return players.values();
     }
 }
