@@ -20,7 +20,7 @@ public class GameModel implements Model, ChangeListener {
         teams = new ArrayList<>();
         players = new HashMap<>();
         // TODO: Instantiate timer when it's ready
-        timer.addChangeListener(this);
+        // timer.addChangeListener(this);
     }
 
     public void importEntryGraphicsData(EntryGraphics data) {

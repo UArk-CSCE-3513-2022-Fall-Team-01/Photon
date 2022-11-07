@@ -2,12 +2,14 @@ package team01.photon.playview;
 
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.util.Iterator;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
 import team01.photon.Controller;
 import team01.photon.Model;
+import team01.photon.Team;
 import team01.photon.View;
 
 public class MainView extends JFrame implements View {
@@ -36,9 +38,13 @@ public class MainView extends JFrame implements View {
 
         TeamPane tmp;
 
-        tmp = new TeamPane(model.getTeams().iterator().next());
+        Iterator<Team> tmp2 = model.getTeams().iterator();
+
+        tmp = new TeamPane(tmp2.next());
+        tmp2.remove();
         add(tmp);
-        tmp = new TeamPane(model.getTeams().iterator().next());
+        add(new MatchPane());
+        tmp = new TeamPane(tmp2.next());
         add(tmp);
 
         setVisible(true);
