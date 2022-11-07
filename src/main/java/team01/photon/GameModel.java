@@ -23,6 +23,28 @@ public class GameModel implements Model, ChangeListener {
         timer.addChangeListener(this);
     }
 
+    public void importEntryGraphicsData(EntryGraphics data) {
+        Team tmpRedTeam = new Team("Alpha Red");
+        Team tmpGreenTeam = new Team("Alpha Grn");
+
+        int i = 0;
+        for (int id : data.redTeamIDs) {
+            Player tmp = new BasicPlayer(id, data.redTeamNames[i]);
+            tmpRedTeam.addPlayer(tmp.getId(), tmp);
+            i++;
+        }
+
+        i = 0;
+        for (int id : data.greenTeamIDs) {
+            Player tmp = new BasicPlayer(id, data.greenTeamNames[i]);
+            tmpGreenTeam.addPlayer(tmp.getId(), tmp);
+            i++;
+        }
+
+        teams.add(tmpRedTeam);
+        teams.add(tmpGreenTeam);
+    }
+
     @Override
     public void addTeam(Team team) {
         // TODO: Add checking for existing team. Maybe use a Set / HashSet instead?

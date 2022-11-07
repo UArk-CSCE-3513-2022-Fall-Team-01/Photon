@@ -1,12 +1,27 @@
 package team01.photon;
-import javax.swing.*;
-public class Game extends JFrame
+
+import team01.photon.playview.MainView;
+
+public class Game
 {
-    public static void main(String[] args){
-        Splash splashScreen = new Splash(3000); //Create a splash screen that lasts for 3 seconds
+    private static Splash splashScreen;
+    private static EntryGraphicsView entryScreen;
+    private static GameModel model;
+    private static MainView actionScreen;
+
+    public static void main(String[] args) {
+        splashScreen = new Splash(3000); //Create a splash screen that lasts for 3 seconds
 		splashScreen.show(); //Show the splash screen
 
-        EntryGraphicsView game = new EntryGraphicsView();
-        game.run();
+        entryScreen = new EntryGraphicsView();
+        entryScreen.run();
+    }
+
+    public static void switchToPlayScreen() {
+        entryScreen.setVisible(false);
+        model = new GameModel();
+        model.importEntryGraphicsData(entryScreen.entryScreen);
+        actionScreen = new MainView(model, null);
+        actionScreen.setVisible(true);
     }
 }
