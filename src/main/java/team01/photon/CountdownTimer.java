@@ -8,11 +8,14 @@ import javax.swing.Timer;
 public class CountdownTimer implements GameTimer{
 
     private Duration duration;
-    private int seconds;
     private EventListenerList eventListener;
+    private Timer timer;
+    private int initialVal = 0;
 
     public CountdownTimer(){
         eventListener = new EventListenerList();
+        this.duration = Duration.ofSeconds(initialVal);
+        
     }
     public CountdownTimer(Duration duration){
         eventListener = new EventListenerList();
@@ -52,7 +55,8 @@ public class CountdownTimer implements GameTimer{
 
     @Override
     public void setTime(int seconds) {
-        this.seconds = seconds;  
+        long time = seconds;
+        this.duration = Duration.ofSeconds(time);
     }
 
     @Override
