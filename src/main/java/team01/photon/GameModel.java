@@ -32,7 +32,7 @@ public class GameModel implements Model, ChangeListener {
     @Override
     public void addPlayer(Player player, Team team) {
         players.put(player.getId(), player);
-        // TODO: Add player to team once that's implemented
+        team.addPlayer(player.getId(), player);
     }
 
     @Override
@@ -53,13 +53,14 @@ public class GameModel implements Model, ChangeListener {
 
     @Override
     public boolean readyToStart() {
-        boolean result = false;
+        boolean result = true;
 
+        result = teams.size() >= 2;
         for (Team team : teams) {
-            // TODO: When implemented, make sure all teams have at least 1 player, and that
-            // there are at least 2 teams
-            // Add to the below a for loop for each team that checks for at least 1 player
-            result = teams.size() >= 2;
+            if (!team.getPlayers().isEmpty()) {
+                result = false;
+                break;
+            }
         }
 
         return result;
