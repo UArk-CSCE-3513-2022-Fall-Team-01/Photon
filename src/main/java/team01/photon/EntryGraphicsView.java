@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 public class EntryGraphicsView extends JFrame
 {
+    public boolean doRepaintLoop;
     public EntryGraphics entryScreen;
 
     public Player[] redTeam;
@@ -13,6 +14,7 @@ public class EntryGraphicsView extends JFrame
 
     public EntryGraphicsView()
     {
+        doRepaintLoop = true;
         int frameW = 800;
         int frameH = 1000;
 
@@ -46,7 +48,7 @@ public class EntryGraphicsView extends JFrame
 
     public void run()
     {
-        while(true)
+        while(doRepaintLoop)
         {
             entryScreen.repaint();
 
