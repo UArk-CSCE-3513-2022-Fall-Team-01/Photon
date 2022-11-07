@@ -210,6 +210,8 @@ public class EntryGraphics extends JPanel implements KeyListener
                     }
                 }catch(Exception e){}
                 break;
+            case KeyEvent.VK_F5:
+                game.game.switchToPlayScreen();
         }
     }
 

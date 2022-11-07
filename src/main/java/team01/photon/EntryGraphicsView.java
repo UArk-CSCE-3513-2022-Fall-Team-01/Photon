@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 public class EntryGraphicsView extends JFrame
 {
+    public Game game;
     public boolean doRepaintLoop;
     public EntryGraphics entryScreen;
 
@@ -12,8 +13,10 @@ public class EntryGraphicsView extends JFrame
 
     public HerokuPostgreDatabase herokuDB;
 
-    public EntryGraphicsView()
+    public EntryGraphicsView(Game game)
     {
+        this.game = game;
+
         doRepaintLoop = true;
         int frameW = 800;
         int frameH = 1000;
@@ -61,13 +64,5 @@ public class EntryGraphicsView extends JFrame
                 System.exit(1);
             }
         }
-    }
-
-    public static void main(String[] args){
-        Splash splashScreen = new Splash(3000); //Create a splash screen that lasts for 3 seconds
-		splashScreen.show(); //Show the splash screen
-
-        EntryGraphicsView game = new EntryGraphicsView();
-        game.run();
     }
 }
