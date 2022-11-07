@@ -3,6 +3,7 @@ package team01.photon.playview;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
 import team01.photon.Controller;
@@ -30,6 +31,17 @@ public class MainView extends JFrame implements View {
         setMinimumSize(DEFAULT_SIZE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(Constants.BG_COLOR);
+
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
+
+        TeamPane tmp;
+
+        tmp = new TeamPane(model.getTeams().iterator().next());
+        add(tmp);
+        tmp = new TeamPane(model.getTeams().iterator().next());
+        add(tmp);
+
+        setVisible(true);
     }
 
     @Override
