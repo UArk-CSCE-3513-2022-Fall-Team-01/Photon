@@ -31,5 +31,6 @@ public class Game
         model.importEntryGraphicsData(entryScreen.entryScreen);
         actionScreen = new MainView(model, null);
         actionScreen.setVisible(true);
+        model.startCountdown();
     }
 }

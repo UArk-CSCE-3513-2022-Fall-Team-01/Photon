@@ -23,7 +23,7 @@ public class SwingTest {
         tmp.addPlaceholderTeam(Color.RED);
         view.add(tmp);
 
-        view.add(new MatchPane());
+        view.add(new MatchPane(null));
 
         tmp = new TeamPane();
         tmp.addPlaceholderTeam(Color.GREEN);

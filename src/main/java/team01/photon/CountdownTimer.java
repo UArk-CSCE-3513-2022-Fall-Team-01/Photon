@@ -1,25 +1,29 @@
 package team01.photon;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.Duration;
+
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;
 import javax.swing.Timer;
 
-public class CountdownTimer implements GameTimer{
+public class CountdownTimer implements GameTimer, ActionListener {
 
     private Duration duration;
     private EventListenerList eventListener;
     private Timer timer;
-    private int initialVal = 0;
 
-    public CountdownTimer(){
-        eventListener = new EventListenerList();
-        this.duration = Duration.ofSeconds(initialVal);
-        
+    public CountdownTimer() {
+        this(Duration.ofSeconds(30));
     }
+
     public CountdownTimer(Duration duration){
         eventListener = new EventListenerList();
         this.duration = duration;
+
+        timer = new Timer(1000, this);
     }
 
     @Override
@@ -53,6 +57,12 @@ public class CountdownTimer implements GameTimer{
         return (int)durationInSeconds;
     }
 
+    protected void fireChangeEvent() {
+        for (ChangeListener tmp : eventListener.getListeners(ChangeListener.class)) {
+            tmp.stateChanged(new ChangeEvent(this));
+        }
+    }
+
     @Override
     public void setTime(int seconds) {
         long time = seconds;
@@ -61,7 +71,17 @@ public class CountdownTimer implements GameTimer{
 
     @Override
     public void start() {
-        
+        timer.start();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        fireChangeEvent();
+        duration = duration.minusSeconds(1);
+
+        if (duration.toSeconds() < 0) {
+            timer.stop();
+        }
     }
     
 }

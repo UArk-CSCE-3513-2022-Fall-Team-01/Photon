@@ -22,14 +22,14 @@ public class MatchStatusPanel extends BasePanel implements ChangeListener {
         super();
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 
-        timerLabel = new TimerLabel(Duration.ofHours(1), Constants.FG_COLOR, SwingConstants.CENTER);
+        timerLabel = new TimerLabel(timer.getTime(), Constants.FG_COLOR, SwingConstants.CENTER);
 
         add(Box.createHorizontalGlue());
         add(timerLabel);
         add(Box.createHorizontalGlue());
 
         this.timer = timer;
-        // timer.addChangeListener(this);
+        timer.addChangeListener(this);
     }
 
     @Override

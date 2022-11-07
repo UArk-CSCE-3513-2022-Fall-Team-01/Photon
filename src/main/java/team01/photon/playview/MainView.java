@@ -43,7 +43,7 @@ public class MainView extends JFrame implements View {
         tmp = new TeamPane(tmp2.next());
         tmp2.remove();
         add(tmp);
-        add(new MatchPane());
+        add(new MatchPane(model.getTimer()));
         tmp = new TeamPane(tmp2.next());
         add(tmp);
 
