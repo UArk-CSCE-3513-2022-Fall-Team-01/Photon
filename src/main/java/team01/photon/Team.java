@@ -5,7 +5,7 @@ public class Team{
     
     private int score;
     private String name;
-    HashMap<Integer, Player> players = new HashMap<Integer, Player>();
+    private HashMap<Integer, Player> players = new HashMap<Integer, Player>(15);
 
     public Team(String name){
         this.name = name;
@@ -26,5 +26,13 @@ public class Team{
     public void addScore(int score){
         this.score = this.score + score;
     }
-
+    public void addPlayer(int key, Player player){
+        players.put(key, player);
+    }
+    public void removePlayer(int key){
+        players.remove(key);
+    }
+    public void getPlayers(){
+        players.values();
+    }
 }
