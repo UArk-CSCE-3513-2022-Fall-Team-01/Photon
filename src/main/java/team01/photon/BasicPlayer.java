@@ -63,4 +63,9 @@ public class BasicPlayer implements Player {
             tmp.stateChanged(new ChangeEvent(this));
         }
     }
+
+    @Override
+    public void removeChangeListener(ChangeListener listener) {
+        listeners.remove(ChangeListener.class, listener);
+    }
 }
