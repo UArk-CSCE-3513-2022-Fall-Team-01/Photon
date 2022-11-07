@@ -20,7 +20,29 @@ public class GameModel implements Model, ChangeListener {
         teams = new ArrayList<>();
         players = new HashMap<>();
         // TODO: Instantiate timer when it's ready
-        timer.addChangeListener(this);
+        // timer.addChangeListener(this);
+    }
+
+    public void importEntryGraphicsData(EntryGraphics data) {
+        Team tmpRedTeam = new Team("Alpha Red");
+        Team tmpGreenTeam = new Team("Alpha Grn");
+
+        int i = 0;
+        for (int id : data.redTeamIDs) {
+            Player tmp = new BasicPlayer(id, data.redTeamNames[i]);
+            tmpRedTeam.addPlayer(tmp.getId(), tmp);
+            i++;
+        }
+
+        i = 0;
+        for (int id : data.greenTeamIDs) {
+            Player tmp = new BasicPlayer(id, data.greenTeamNames[i]);
+            tmpGreenTeam.addPlayer(tmp.getId(), tmp);
+            i++;
+        }
+
+        teams.add(tmpRedTeam);
+        teams.add(tmpGreenTeam);
     }
 
     @Override
@@ -32,7 +54,7 @@ public class GameModel implements Model, ChangeListener {
     @Override
     public void addPlayer(Player player, Team team) {
         players.put(player.getId(), player);
-        // TODO: Add player to team once that's implemented
+        team.addPlayer(player.getId(), player);
     }
 
     @Override
@@ -53,13 +75,14 @@ public class GameModel implements Model, ChangeListener {
 
     @Override
     public boolean readyToStart() {
-        boolean result = false;
+        boolean result = true;
 
+        result = teams.size() >= 2;
         for (Team team : teams) {
-            // TODO: When implemented, make sure all teams have at least 1 player, and that
-            // there are at least 2 teams
-            // Add to the below a for loop for each team that checks for at least 1 player
-            result = teams.size() >= 2;
+            if (!team.getPlayers().isEmpty()) {
+                result = false;
+                break;
+            }
         }
 
         return result;
