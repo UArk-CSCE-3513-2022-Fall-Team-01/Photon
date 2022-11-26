@@ -17,6 +17,8 @@ public interface Model {
 
     public void playerHit(Player attacker, Player victim);
 
+    public void playerHit(PlayerHitEvent e);
+
     public void startMatch();
 
     public boolean readyToStart();

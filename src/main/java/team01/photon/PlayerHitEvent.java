@@ -16,4 +16,21 @@ public class PlayerHitEvent {
     public Player getVictim() {
         return victim;
     }
+
+    @Override
+    public String toString() {
+        final String actionText = "---*";
+        final String separator = " ";
+
+        StringBuilder printout = new StringBuilder();
+
+        printout
+            .append(attacker.getCodename())
+            .append(separator)
+            .append(actionText)
+            .append(separator)
+            .append(victim.getCodename());
+
+        return printout.toString();
+    }
 }

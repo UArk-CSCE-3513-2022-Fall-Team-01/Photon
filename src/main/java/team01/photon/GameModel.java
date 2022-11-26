@@ -15,6 +15,7 @@ public class GameModel implements Model, ChangeListener {
     ArrayList<Team> teams;
     HashMap<Integer, Player> players;
     GameTimer timer;
+    EventFeedQueue eventQueue;
 
     public GameModel() {
         teams = new ArrayList<>();
@@ -63,8 +64,17 @@ public class GameModel implements Model, ChangeListener {
 
     @Override
     public void playerHit(Player attacker, Player victim) {
-        // TODO: Sprint 4
-        // Check behavior on Trello
+        playerHit(new PlayerHitEvent(attacker, victim));
+    }
+
+    @Override
+    public void playerHit(PlayerHitEvent e) {
+        final int HIT_VALUE = 10;
+
+        e.getAttacker().addToScore(HIT_VALUE);
+        e.getVictim().addToScore(-HIT_VALUE);
+
+        eventQueue.add(e);
     }
 
     public void startCountdown() {
