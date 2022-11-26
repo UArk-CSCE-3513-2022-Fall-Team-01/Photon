@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import team01.photon.playview.MainView;
-
 import java.util.Arrays;
 
 public class EntryGraphics extends JPanel implements KeyListener {
