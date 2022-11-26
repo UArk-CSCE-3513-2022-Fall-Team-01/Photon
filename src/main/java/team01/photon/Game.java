@@ -10,10 +10,7 @@ public class Game {
 
     public static void main(String[] args) {
         Game self = new Game();
-    }
-
-    public Game() {
-        run();
+        self.run();
     }
 
     public void run() {
