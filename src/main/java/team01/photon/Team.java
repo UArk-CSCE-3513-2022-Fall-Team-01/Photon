@@ -7,7 +7,7 @@ public class Team {
 
     private int score;
     private String name;
-    private HashMap<Integer, Player> players = new HashMap<Integer, Player>(15);
+    private HashMap<Integer, Player> players = new HashMap<>(15);
 
     public Team(String name) {
         this.name = name;
