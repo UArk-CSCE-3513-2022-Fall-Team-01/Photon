@@ -2,8 +2,7 @@ package team01.photon;
 
 import team01.photon.playview.MainView;
 
-public class Game
-{
+public class Game {
     private Splash splashScreen;
     private EntryGraphicsView entryScreen;
     private GameModel model;
@@ -18,8 +17,8 @@ public class Game
     }
 
     public void run() {
-        splashScreen = new Splash(3000); //Create a splash screen that lasts for 3 seconds
-		splashScreen.show(); //Show the splash screen
+        splashScreen = new Splash(3000); // Create a splash screen that lasts for 3 seconds
+        splashScreen.show(); // Show the splash screen
 
         entryScreen = new EntryGraphicsView(this);
         entryScreen.run();

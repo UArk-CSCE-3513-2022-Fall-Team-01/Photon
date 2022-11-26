@@ -49,8 +49,6 @@ public class PlayerPanel extends BasePanel implements ChangeListener {
         score.setScore(linkedPlayer.getScore());
     }
 
-
-
     // TODO: Test out flipping the orientation. It should work if using
     // setComponentOrientation
 }

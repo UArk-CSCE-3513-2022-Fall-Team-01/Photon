@@ -19,7 +19,7 @@ public class CountdownTimer implements GameTimer, ActionListener {
         this(Duration.ofSeconds(30));
     }
 
-    public CountdownTimer(Duration duration){
+    public CountdownTimer(Duration duration) {
         eventListener = new EventListenerList();
         this.duration = duration;
 
@@ -39,12 +39,14 @@ public class CountdownTimer implements GameTimer, ActionListener {
     @Override
     public void clearChangeListeners() {
         eventListener = new EventListenerList();
-        
+
     }
+
     @Override
     public void setTime(Duration duration) {
         this.duration = duration;
     }
+
     @Override
     public Duration getTime() {
         return duration;
@@ -54,7 +56,7 @@ public class CountdownTimer implements GameTimer, ActionListener {
     public int getTimeInSeconds() {
         long durationInSeconds = 0;
         durationInSeconds = duration.getSeconds();
-        return (int)durationInSeconds;
+        return (int) durationInSeconds;
     }
 
     protected void fireChangeEvent() {
@@ -83,5 +85,5 @@ public class CountdownTimer implements GameTimer, ActionListener {
             timer.stop();
         }
     }
-    
+
 }

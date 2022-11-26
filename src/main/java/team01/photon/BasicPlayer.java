@@ -47,7 +47,7 @@ public class BasicPlayer implements Player {
     public void addToScore(int amount) {
         setScore(getScore() + amount);
     }
-    
+
     @Override
     public void addChangeListener(ChangeListener listener) {
         listeners.add(ChangeListener.class, listener);
