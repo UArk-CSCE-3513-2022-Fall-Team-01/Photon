@@ -29,6 +29,8 @@ public class GameModel implements Model, ChangeListener {
 
         int i = 0;
         for (int id : data.redTeamIDs) {
+            if (id < 0)
+                break;
             Player tmp = new BasicPlayer(id, data.redTeamNames[i]);
             tmpRedTeam.addPlayer(tmp.getId(), tmp);
             i++;
@@ -36,6 +38,8 @@ public class GameModel implements Model, ChangeListener {
 
         i = 0;
         for (int id : data.greenTeamIDs) {
+            if (id < 0)
+                break;
             Player tmp = new BasicPlayer(id, data.greenTeamNames[i]);
             tmpGreenTeam.addPlayer(tmp.getId(), tmp);
             i++;
