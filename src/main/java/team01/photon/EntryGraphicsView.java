@@ -54,6 +54,8 @@ public class EntryGraphicsView extends JFrame {
 
             try {
                 Thread.sleep(40);
+                if(!this.isVisible())
+                    break;
             } catch (Exception e) {
                 e.printStackTrace();
                 System.exit(1);

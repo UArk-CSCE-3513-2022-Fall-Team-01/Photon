@@ -23,6 +23,7 @@ public class Game {
 
     public void switchToPlayScreen() {
         entryScreen.setVisible(false);
+        entryScreen.dispose();
         model = new GameModel();
         model.importEntryGraphicsData(entryScreen.entryScreen);
         actionScreen = new MainView(model, null);
