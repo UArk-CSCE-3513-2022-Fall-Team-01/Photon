@@ -45,7 +45,14 @@ public class Team implements Comparable<Team> {
         return players.values();
     }
 
-    // Note: this class has a nautral ordering that is inconsistent with equals.
+    public void addPlayerScores(){
+        int newScore = 0;
+        for(Player numPlayer : players.values()) {
+            newScore += numPlayer.getScore();
+        }
+        this.score = newScore;
+    }
+
     @Override
     public int compareTo(Team o) {
         return getScore() - o.getScore();
