@@ -68,4 +68,9 @@ public class BasicPlayer implements Player {
     public void removeChangeListener(ChangeListener listener) {
         listeners.remove(ChangeListener.class, listener);
     }
+
+    @Override
+    public int compareTo(Player o) {
+        return getScore() - o.getScore();
+    }
 }

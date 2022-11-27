@@ -3,7 +3,7 @@ package team01.photon;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class Team {
+public class Team implements Comparable<Team> {
 
     private int score;
     private String name;
@@ -51,5 +51,10 @@ public class Team {
             newScore += numPlayer.getScore();
         }
         this.score = newScore;
+    }
+
+    @Override
+    public int compareTo(Team o) {
+        return getScore() - o.getScore();
     }
 }
