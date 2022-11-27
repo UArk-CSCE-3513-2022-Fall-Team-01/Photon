@@ -39,7 +39,7 @@ public class BasicPlayer implements Player {
 
     @Override
     public void setScore(int newScore) {
-        score = newScore;
+        score = newScore < 0 ? 0 : newScore; //If the new score is below zero, set to just zero
         fireChangeEvent();
     }
 
