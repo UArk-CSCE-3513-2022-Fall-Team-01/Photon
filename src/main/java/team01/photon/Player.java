@@ -1,6 +1,6 @@
 package team01.photon;
 
-public interface Player extends ChangeNotifier {
+public interface Player extends ChangeNotifier, Comparable<Player> {
     public int getId();
 
     public String getCodename();
