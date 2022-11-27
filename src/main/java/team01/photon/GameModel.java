@@ -117,7 +117,9 @@ public class GameModel implements Model, ChangeListener {
         e.getVictim().addToScore(-HIT_VALUE);
 
         eventQueue.add(e);
-
+        for (Team tmp : teams) {
+            tmp.addPlayerScores();
+        }
         sortLeaderboards();
     }
 
