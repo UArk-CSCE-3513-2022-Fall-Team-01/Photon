@@ -1,9 +1,12 @@
 package team01.photon;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,13 +15,16 @@ public class GameModel implements Model, ChangeListener {
     private static final int COUNTDOWN_SECONDS = 30;
     private static final Duration MATCH_LENGTH = Duration.ofMinutes(30);
 
-    ArrayList<Team> teams;
+    HashSet<Team> teams;
     HashMap<Integer, Player> players;
     GameTimer timer;
     EventFeedQueue eventQueue;
 
+    LinkedList<Player> playerLeaderboard;
+    LinkedList<Team> teamLeaderboard;
+
     public GameModel() {
-        teams = new ArrayList<>();
+        teams = new HashSet<>();
         players = new HashMap<>();
         timer = new CountdownTimer();
         timer.addChangeListener(this);
@@ -50,14 +56,50 @@ public class GameModel implements Model, ChangeListener {
         teams.add(tmpGreenTeam);
     }
 
+    // Sorts in ascending order, so top player is at the bottom
+    private void sortLeaderboards() {
+        Collections.sort(playerLeaderboard);
+        Collections.sort(teamLeaderboard);
+    }
+
+    // Returns null if there's a tie
+    public Player getTopScoringPlayer() {
+        return getGreatestListItem(playerLeaderboard);
+    }
+
+    // Returns null if there's a tie
+    public Team getTopScoringTeam() {
+        return getGreatestListItem(teamLeaderboard);
+    }
+
+    public List<Team> getTeamLeaderboard() {
+        return teamLeaderboard;
+    }
+
+    public List<Player> getPlayerLeaderboard() {
+        return playerLeaderboard;
+    }
+
+    // Get highest value list item, but return null if a tie exists
+    private <T extends Comparable<T>> T getGreatestListItem(LinkedList<T> list) {
+        T result = list.getLast();
+
+        if (result.compareTo(list.get(-2)) == 0)
+            result = null;
+        
+        return result;
+    }
+
     @Override
     public void addTeam(Team team) {
-        // TODO: Add checking for existing team. Maybe use a Set / HashSet instead?
         teams.add(team);
     }
 
     @Override
     public void addPlayer(Player player, Team team) {
+        if (!teams.contains(team))
+            teams.add(team);
+
         players.put(player.getId(), player);
         team.addPlayer(player.getId(), player);
     }
@@ -75,6 +117,8 @@ public class GameModel implements Model, ChangeListener {
         e.getVictim().addToScore(-HIT_VALUE);
 
         eventQueue.add(e);
+
+        sortLeaderboards();
     }
 
     public void startCountdown() {
@@ -84,7 +128,8 @@ public class GameModel implements Model, ChangeListener {
 
     @Override
     public void startMatch() {
-        // TODO: Finish in Sprint 4?
+        playerLeaderboard = new LinkedList<>(players.values());
+        teamLeaderboard = new LinkedList<>(teams);
     }
 
     @Override
@@ -126,7 +171,6 @@ public class GameModel implements Model, ChangeListener {
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == timer && timer.getTime().isZero()) {
             startMatch();
-            // TODO: Check that this would actually work, and also set timer to new value
         }
     }
 
