@@ -7,10 +7,13 @@ public class Game {
     private EntryGraphicsView entryScreen;
     private GameModel model;
     private MainView actionScreen;
+    private NetworkReceiver networkReceiver;
 
     public static void main(String[] args) {
         Game self = new Game();
         self.run();
+        self.networkReceiver.receiver.run();
+        //Add some kind of check to make sure network events aren't processed before or after the actual play time
     }
 
     public void run() {
@@ -19,6 +22,7 @@ public class Game {
 
         entryScreen = new EntryGraphicsView(this);
         entryScreen.run();
+        networkReceiver = new NetworkReceiver();
     }
 
     public void switchToPlayScreen() {
@@ -29,5 +33,6 @@ public class Game {
         actionScreen = new MainView(model, null);
         actionScreen.setVisible(true);
         model.startCountdown();
+        networkReceiver.StartPlay(model);
     }
 }

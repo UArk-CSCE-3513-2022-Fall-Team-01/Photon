@@ -28,6 +28,7 @@ public class GameModel implements Model, ChangeListener {
         players = new HashMap<>();
         timer = new CountdownTimer();
         timer.addChangeListener(this);
+        eventQueue = new EventFeedQueue();
     }
 
     public void importEntryGraphicsData(EntryGraphics data) {
@@ -39,7 +40,7 @@ public class GameModel implements Model, ChangeListener {
             if (id < 0)
                 break;
             Player tmp = new BasicPlayer(id, data.redTeamNames[i]);
-            tmpRedTeam.addPlayer(tmp.getId(), tmp);
+            addPlayer(tmp, tmpRedTeam);
             i++;
         }
 
@@ -48,7 +49,7 @@ public class GameModel implements Model, ChangeListener {
             if (id < 0)
                 break;
             Player tmp = new BasicPlayer(id, data.greenTeamNames[i]);
-            tmpGreenTeam.addPlayer(tmp.getId(), tmp);
+            addPlayer(tmp, tmpGreenTeam);
             i++;
         }
 
@@ -105,6 +106,9 @@ public class GameModel implements Model, ChangeListener {
     }
 
     @Override
+    public void playerHit(int attackerID, int victimID) { playerHit(getPlayerById(attackerID),getPlayerById(victimID)); }
+
+    @Override
     public void playerHit(Player attacker, Player victim) {
         playerHit(new PlayerHitEvent(attacker, victim));
     }
@@ -112,7 +116,6 @@ public class GameModel implements Model, ChangeListener {
     @Override
     public void playerHit(PlayerHitEvent e) {
         final int HIT_VALUE = 10;
-
         e.getAttacker().addToScore(HIT_VALUE);
         e.getVictim().addToScore(-HIT_VALUE);
 

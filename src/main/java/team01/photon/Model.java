@@ -16,6 +16,8 @@ public interface Model {
 
     public GameTimer getTimer();
 
+    public void playerHit(int attackerID, int victimID);
+
     public void playerHit(Player attacker, Player victim);
 
     public void playerHit(PlayerHitEvent e);
