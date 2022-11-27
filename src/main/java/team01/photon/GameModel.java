@@ -17,19 +17,11 @@ public class GameModel implements Model, ChangeListener {
     GameTimer timer;
     EventFeedQueue eventQueue;
 
-    NetworkReceiver networkReceiver;
-
     public GameModel() {
         teams = new ArrayList<>();
         players = new HashMap<>();
         timer = new CountdownTimer();
         timer.addChangeListener(this);
-        networkReceiver = new NetworkReceiver();
-        try {
-            networkReceiver.Initialize();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
     }
 
     public void importEntryGraphicsData(EntryGraphics data) {
