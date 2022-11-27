@@ -63,6 +63,11 @@ public class GameModel implements Model, ChangeListener {
     }
 
     @Override
+    public void playerHit(int attackerID, int victimID) {
+        playerHit(getPlayerById(attackerID),getPlayerById(victimID));
+    }
+
+    @Override
     public void playerHit(Player attacker, Player victim) {
         playerHit(new PlayerHitEvent(attacker, victim));
     }

@@ -33,6 +33,6 @@ public class Game {
         actionScreen = new MainView(model, null);
         actionScreen.setVisible(true);
         model.startCountdown();
-        networkReceiver.StartPlay();
+        networkReceiver.StartPlay(model);
     }
 }

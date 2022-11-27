@@ -17,8 +17,9 @@ public class NetworkReceiver {
         receiver = new SocketListener(receiverPort);
     }
 
-    public void StartPlay()
+    public void StartPlay(GameModel gameModel)
     {
+        receiver.gameModel = gameModel;
         receiver.isPlaying = true;
     }
 
@@ -38,6 +39,7 @@ class SocketListener extends Thread
     byte[] receivedBytes;
     private DatagramSocket socket;
     private int port;
+    public GameModel gameModel;
 
     public void run()
     {
@@ -65,6 +67,7 @@ class SocketListener extends Thread
             if(isPlaying){
                 System.out.println("Perpetrator: " + perpetrator);
                 System.out.println("Victim: " + victim);
+                gameModel.playerHit(perpetrator,victim);
             }
         }
 
