@@ -44,4 +44,12 @@ public class Team {
     public Collection<Player> getPlayers() {
         return players.values();
     }
+
+    public void addPlayerScores(){
+        int newScore = 0;
+        for(Player numPlayer : players.values()) {
+            newScore += numPlayer.getScore();
+        }
+        this.score = newScore;
+    }
 }
