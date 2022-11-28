@@ -8,7 +8,7 @@ import javax.swing.event.ChangeListener;
 
 import team01.photon.Team;
 
-public class TeamPanel extends BasePanel implements ChangeListener {
+public class TeamPanel extends BasePanel {
     private transient TeamNameLabel name;
     private transient TeamScoreLabel score;
     private transient Team linkedTeam;
@@ -27,9 +27,7 @@ public class TeamPanel extends BasePanel implements ChangeListener {
         add(this.score);
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
+    public void updateScore() {
         score.setScore(linkedTeam.getScore());
     }
-
 }

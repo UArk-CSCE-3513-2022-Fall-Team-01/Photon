@@ -36,6 +36,14 @@ public class PlayerPanel extends BasePanel implements ChangeListener {
         add(this.score);
     }
 
+    public void changePlayer(Player player) {
+        linkedPlayer.removeChangeListener(this);
+        linkedPlayer = player;
+        linkedPlayer.addChangeListener(this);
+        setPlayerName(linkedPlayer.getCodename());
+        setPlayerScore(linkedPlayer.getScore());
+    }
+
     public void setPlayerName(String name) {
         this.name.setText(name);
     }
