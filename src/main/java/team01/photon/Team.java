@@ -16,6 +16,7 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     private String name;
     private HashMap<Integer, Player> players = new HashMap<>(15);
     private EventListenerList listeners;
+    private boolean leaderStatus = false;
 
     public Team(String name) {
         this.name = name;
@@ -41,8 +42,10 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     }
 
     public void setScore(int score) {
+        int oldScore = score;
         this.score = score;
-        fireChangeEvent();
+        if (score != oldScore)
+            fireChangeEvent();
     }
 
     public int getScore() {
@@ -51,7 +54,8 @@ public class Team implements Comparable<Team>, ChangeNotifier {
 
     public void addScore(int score) {
         this.score = this.score + score;
-        fireChangeEvent();
+        if (score != 0)
+            fireChangeEvent();
     }
 
     public void addPlayer(int key, Player player) {
@@ -67,12 +71,25 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     }
 
     public void addPlayerScores(){
+        int oldScore = score;
         int newScore = 0;
         for(Player numPlayer : players.values()) {
             newScore += numPlayer.getScore();
         }
         this.score = newScore;
-        fireChangeEvent();
+        if (newScore != oldScore)
+            fireChangeEvent();
+    }
+
+    public boolean getLeaderStatus() {
+        return leaderStatus;
+    }
+
+    public void setLeaderStatus(boolean value) {
+        boolean oldStatus = leaderStatus;
+        leaderStatus = value;
+        if (value != oldStatus)
+            fireChangeEvent();
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -20,6 +21,8 @@ public class GameModel implements Model, ChangeListener {
     HashMap<Integer, Player> players;
     GameTimer timer;
     EventFeedQueue eventQueue;
+    Player leadingPlayer;
+    Team leadingTeam;
 
     LinkedList<Player> playerLeaderboard;
     LinkedList<Team> teamLeaderboard;
@@ -61,12 +64,26 @@ public class GameModel implements Model, ChangeListener {
     }
 
     // Sort places it in ascending order. Reverse to flip to descending
+    // Updates the leading player and team as well
     private void sortLeaderboards() {
+        if (!Objects.isNull(leadingPlayer))
+            leadingPlayer.setLeaderStatus(false);
+        if (!Objects.isNull(leadingTeam))
+            leadingTeam.setLeaderStatus(false);
+
         Collections.sort(playerLeaderboard);
         Collections.reverse(playerLeaderboard);
 
         Collections.sort(teamLeaderboard);
         Collections.reverse(teamLeaderboard);
+
+        leadingPlayer = getTopScoringPlayer();
+        leadingTeam = getTopScoringTeam();
+
+        if (!Objects.isNull(leadingPlayer))
+            leadingPlayer.setLeaderStatus(true);
+        if (!Objects.isNull(leadingTeam))
+            leadingTeam.setLeaderStatus(true);
     }
 
     // Returns null if there's a tie
