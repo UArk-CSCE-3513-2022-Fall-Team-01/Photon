@@ -3,14 +3,20 @@ package team01.photon;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class Team implements Comparable<Team> {
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
+
+public class Team implements Comparable<Team>, ChangeNotifier {
 
     private int score;
     private String name;
     private HashMap<Integer, Player> players = new HashMap<>(15);
+    private EventListenerList listeners;
 
     public Team(String name) {
         this.name = name;
+        listeners = new EventListenerList();
     }
 
     public void setName(String name) {
@@ -23,6 +29,7 @@ public class Team implements Comparable<Team> {
 
     public void setScore(int score) {
         this.score = score;
+        fireChangeEvent();
     }
 
     public int getScore() {
@@ -31,6 +38,7 @@ public class Team implements Comparable<Team> {
 
     public void addScore(int score) {
         this.score = this.score + score;
+        fireChangeEvent();
     }
 
     public void addPlayer(int key, Player player) {
@@ -51,10 +59,32 @@ public class Team implements Comparable<Team> {
             newScore += numPlayer.getScore();
         }
         this.score = newScore;
+        fireChangeEvent();
     }
 
     @Override
     public int compareTo(Team o) {
         return getScore() - o.getScore();
+    }
+
+    @Override
+    public void addChangeListener(ChangeListener listener) {
+        listeners.add(ChangeListener.class, listener);
+    }
+
+    @Override
+    public void removeChangeListener(ChangeListener listener) {
+        listeners.remove(ChangeListener.class, listener);
+    }
+
+    @Override
+    public void clearChangeListeners() {
+        listeners = new EventListenerList();
+    }
+
+    protected void fireChangeEvent() {
+        for (ChangeListener tmp : listeners.getListeners(ChangeListener.class)) {
+            tmp.stateChanged(new ChangeEvent(this));
+        }
     }
 }
