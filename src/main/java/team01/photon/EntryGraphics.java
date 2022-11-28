@@ -222,4 +222,6 @@ public class EntryGraphics extends JPanel implements KeyListener {
             }
         }
     }
+
+    
 }

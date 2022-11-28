@@ -1,6 +1,8 @@
 package team01.photon;
 
 import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.*;
 
 public class EntryGraphicsView extends JFrame {
     public Game game;
@@ -34,6 +36,17 @@ public class EntryGraphicsView extends JFrame {
 
         // Add a key listener for keyboard input
         this.addKeyListener(entryScreen);
+
+        // Add a button to switch to Playview when ready
+        Button readyButton = new Button("Ready!");
+        readyButton.setBounds(600,10,50,50);
+        readyButton.addActionListener(new ActionListener() {
+        public void actionPerformed (ActionEvent e) {
+                game.switchToPlayScreen();
+                //readyButton.removeActionListener(ActionListener);
+            }
+        });
+        this.add(readyButton);
 
         // Set up teams and the Heroku database connection
         redTeam = new Player[15];
