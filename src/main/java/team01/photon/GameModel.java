@@ -1,12 +1,16 @@
 package team01.photon;
 
+import java.awt.Color;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -19,9 +23,13 @@ public class GameModel implements Model, ChangeListener {
     HashMap<Integer, Player> players;
     GameTimer timer;
     EventFeedQueue eventQueue;
+    Player leadingPlayer;
+    Team leadingTeam;
 
     LinkedList<Player> playerLeaderboard;
     LinkedList<Team> teamLeaderboard;
+
+    public boolean gameInProgress = false;
 
     public GameModel() {
         teams = new HashSet<>();
@@ -32,8 +40,8 @@ public class GameModel implements Model, ChangeListener {
     }
 
     public void importEntryGraphicsData(EntryGraphics data) {
-        Team tmpRedTeam = new Team("Alpha Red");
-        Team tmpGreenTeam = new Team("Alpha Grn");
+        Team tmpRedTeam = new Team("Alpha Red", Color.RED);
+        Team tmpGreenTeam = new Team("Alpha Grn", Color.GREEN);
 
         int i = 0;
         for (int id : data.redTeamIDs) {
@@ -57,10 +65,25 @@ public class GameModel implements Model, ChangeListener {
         teams.add(tmpGreenTeam);
     }
 
-    // Sorts in ascending order, so top player is at the bottom
+    // Sort places it in ascending order. Reverse to flip to descending
+    // Updates the leading player and team as well
     private void sortLeaderboards() {
-        Collections.sort(playerLeaderboard);
-        Collections.sort(teamLeaderboard);
+        if (!Objects.isNull(leadingPlayer))
+            leadingPlayer.setLeaderStatus(false);
+        if (!Objects.isNull(leadingTeam))
+            leadingTeam.setLeaderStatus(false);
+
+        Collections.sort(playerLeaderboard, Collections.reverseOrder());
+
+        Collections.sort(teamLeaderboard, Collections.reverseOrder());
+
+        leadingPlayer = getTopScoringPlayer();
+        leadingTeam = getTopScoringTeam();
+
+        if (!Objects.isNull(leadingPlayer))
+            leadingPlayer.setLeaderStatus(true);
+        if (!Objects.isNull(leadingTeam))
+            leadingTeam.setLeaderStatus(true);
     }
 
     // Returns null if there's a tie
@@ -82,12 +105,13 @@ public class GameModel implements Model, ChangeListener {
     }
 
     // Get highest value list item, but return null if a tie exists
-    private <T extends Comparable<T>> T getGreatestListItem(LinkedList<T> list) {
-        T result = list.getLast();
+    private <T extends Comparable<T>> T getGreatestListItem(List<T> list) {
+        Iterator<T> iter = list.iterator();
+        T result = iter.next();
 
-        if (result.compareTo(list.get(-2)) == 0)
+        if (iter.hasNext() && result.compareTo(iter.next()) == 0)
             result = null;
-        
+
         return result;
     }
 
@@ -106,7 +130,9 @@ public class GameModel implements Model, ChangeListener {
     }
 
     @Override
-    public void playerHit(int attackerID, int victimID) { playerHit(getPlayerById(attackerID),getPlayerById(victimID)); }
+    public void playerHit(int attackerID, int victimID) {
+        playerHit(getPlayerById(attackerID), getPlayerById(victimID));
+    }
 
     @Override
     public void playerHit(Player attacker, Player victim) {
@@ -116,13 +142,16 @@ public class GameModel implements Model, ChangeListener {
     @Override
     public void playerHit(PlayerHitEvent e) {
         final int HIT_VALUE = 10;
+
         e.getAttacker().addToScore(HIT_VALUE);
         e.getVictim().addToScore(-HIT_VALUE);
 
         eventQueue.add(e);
+
         for (Team tmp : teams) {
             tmp.addPlayerScores();
         }
+
         sortLeaderboards();
     }
 
@@ -135,6 +164,7 @@ public class GameModel implements Model, ChangeListener {
     public void startMatch() {
         playerLeaderboard = new LinkedList<>(players.values());
         teamLeaderboard = new LinkedList<>(teams);
+        gameInProgress = true;
     }
 
     @Override

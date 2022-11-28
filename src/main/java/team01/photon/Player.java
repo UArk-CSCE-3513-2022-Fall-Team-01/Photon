@@ -10,4 +10,8 @@ public interface Player extends ChangeNotifier, Comparable<Player> {
     public void setScore(int newScore);
 
     public void addToScore(int newScore);
+
+    public boolean getLeaderStatus();
+
+    public void setLeaderStatus(boolean value);
 }

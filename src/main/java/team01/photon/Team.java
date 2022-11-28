@@ -1,7 +1,12 @@
 package team01.photon;
 
+import java.awt.Color;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -11,12 +16,30 @@ public class Team implements Comparable<Team>, ChangeNotifier {
 
     private int score;
     private String name;
-    private HashMap<Integer, Player> players = new HashMap<>(15);
+    private LinkedHashMap<Integer, Player> players = new LinkedHashMap<>(15);
     private EventListenerList listeners;
+    private boolean leaderStatus = false;
+    private Color color;
+    private List<Player> leaderboard;
 
-    public Team(String name) {
+    public Team(String name, Color color) {
         this.name = name;
+        this.color = color;
         listeners = new EventListenerList();
+    }
+
+    // Returns players in team in descending-score order
+    public List<Player> getLeaderboard() {
+        if (Objects.isNull(leaderboard))
+            leaderboard = new LinkedList<>(players.values());
+
+        Collections.sort(leaderboard, Collections.reverseOrder());
+
+        return leaderboard;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public void setName(String name) {
@@ -28,8 +51,10 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     }
 
     public void setScore(int score) {
+        int oldScore = this.score;
         this.score = score;
-        fireChangeEvent();
+        if (score != oldScore)
+            fireChangeEvent();
     }
 
     public int getScore() {
@@ -38,7 +63,8 @@ public class Team implements Comparable<Team>, ChangeNotifier {
 
     public void addScore(int score) {
         this.score = this.score + score;
-        fireChangeEvent();
+        if (score != 0)
+            fireChangeEvent();
     }
 
     public void addPlayer(int key, Player player) {
@@ -54,12 +80,28 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     }
 
     public void addPlayerScores(){
+        int oldScore = score;
         int newScore = 0;
+
         for(Player numPlayer : players.values()) {
             newScore += numPlayer.getScore();
         }
-        this.score = newScore;
-        fireChangeEvent();
+
+        score = newScore;
+
+        if (newScore != oldScore)
+            fireChangeEvent();
+    }
+
+    public boolean getLeaderStatus() {
+        return leaderStatus;
+    }
+
+    public void setLeaderStatus(boolean value) {
+        boolean oldStatus = leaderStatus;
+        leaderStatus = value;
+        if (value != oldStatus)
+            fireChangeEvent();
     }
 
     @Override
