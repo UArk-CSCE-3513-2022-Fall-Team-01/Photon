@@ -24,6 +24,8 @@ public class GameModel implements Model, ChangeListener {
     LinkedList<Player> playerLeaderboard;
     LinkedList<Team> teamLeaderboard;
 
+    public boolean gameInProgress = false;
+
     public GameModel() {
         teams = new HashSet<>();
         players = new HashMap<>();
@@ -140,6 +142,7 @@ public class GameModel implements Model, ChangeListener {
     public void startMatch() {
         playerLeaderboard = new LinkedList<>(players.values());
         teamLeaderboard = new LinkedList<>(teams);
+        gameInProgress = true;
     }
 
     @Override

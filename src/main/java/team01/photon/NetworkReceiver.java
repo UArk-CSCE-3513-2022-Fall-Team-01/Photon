@@ -64,7 +64,7 @@ class SocketListener extends Thread
 
                 int perpetrator = Integer.parseInt(receivedString.substring(0,receivedString.indexOf(':')));
                 int victim = Integer.parseInt(receivedString.substring(receivedString.indexOf(':') + 1,receivedString.indexOf('\u0000')));
-            if(isPlaying){
+            if(gameModel.gameInProgress){
                 gameModel.playerHit(perpetrator,victim);
             }
         }
