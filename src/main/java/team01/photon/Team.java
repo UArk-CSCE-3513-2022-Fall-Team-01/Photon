@@ -1,7 +1,10 @@
 package team01.photon;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -17,6 +20,16 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     public Team(String name) {
         this.name = name;
         listeners = new EventListenerList();
+    }
+
+    // Returns players in team in descending-score order
+    public List<Player> getLeaderboard() {
+        LinkedList<Player> tmp = new LinkedList<>(players.values());
+
+        Collections.sort(tmp);
+        Collections.reverse(tmp);
+
+        return tmp;
     }
 
     public void setName(String name) {
