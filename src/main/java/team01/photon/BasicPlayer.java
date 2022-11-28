@@ -8,6 +8,7 @@ public class BasicPlayer implements Player {
     private int id;
     private String codename;
     private int score;
+    private boolean leaderStatus = false;
 
     private EventListenerList listeners;
 
@@ -39,8 +40,11 @@ public class BasicPlayer implements Player {
 
     @Override
     public void setScore(int newScore) {
+        int oldScore = score;
+        newScore = newScore < 0 ? 0 : newScore; //If the new score is below zero, set to just zero
         score = newScore;
-        fireChangeEvent();
+        if (newScore != oldScore)
+            fireChangeEvent();
     }
 
     @Override
@@ -67,5 +71,23 @@ public class BasicPlayer implements Player {
     @Override
     public void removeChangeListener(ChangeListener listener) {
         listeners.remove(ChangeListener.class, listener);
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return getScore() - o.getScore();
+    }
+
+    @Override
+    public boolean getLeaderStatus() {
+        return leaderStatus;
+    }
+
+    @Override
+    public void setLeaderStatus(boolean value) {
+        boolean oldStatus = leaderStatus;
+        leaderStatus = value;
+        if (value != oldStatus)
+            fireChangeEvent();
     }
 }

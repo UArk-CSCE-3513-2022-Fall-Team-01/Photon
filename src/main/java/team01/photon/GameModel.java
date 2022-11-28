@@ -1,9 +1,16 @@
 package team01.photon;
 
+import java.awt.Color;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,27 +19,36 @@ public class GameModel implements Model, ChangeListener {
     private static final int COUNTDOWN_SECONDS = 30;
     private static final Duration MATCH_LENGTH = Duration.ofMinutes(30);
 
-    ArrayList<Team> teams;
+    HashSet<Team> teams;
     HashMap<Integer, Player> players;
     GameTimer timer;
+    EventFeedQueue eventQueue;
+    Player leadingPlayer;
+    Team leadingTeam;
+
+    LinkedList<Player> playerLeaderboard;
+    LinkedList<Team> teamLeaderboard;
+
+    public boolean gameInProgress = false;
 
     public GameModel() {
-        teams = new ArrayList<>();
+        teams = new HashSet<>();
         players = new HashMap<>();
         timer = new CountdownTimer();
         timer.addChangeListener(this);
+        eventQueue = new EventFeedQueue();
     }
 
     public void importEntryGraphicsData(EntryGraphics data) {
-        Team tmpRedTeam = new Team("Alpha Red");
-        Team tmpGreenTeam = new Team("Alpha Grn");
+        Team tmpRedTeam = new Team("Alpha Red", Color.RED);
+        Team tmpGreenTeam = new Team("Alpha Grn", Color.GREEN);
 
         int i = 0;
         for (int id : data.redTeamIDs) {
             if (id < 0)
                 break;
             Player tmp = new BasicPlayer(id, data.redTeamNames[i]);
-            tmpRedTeam.addPlayer(tmp.getId(), tmp);
+            addPlayer(tmp, tmpRedTeam);
             i++;
         }
 
@@ -41,7 +57,7 @@ public class GameModel implements Model, ChangeListener {
             if (id < 0)
                 break;
             Player tmp = new BasicPlayer(id, data.greenTeamNames[i]);
-            tmpGreenTeam.addPlayer(tmp.getId(), tmp);
+            addPlayer(tmp, tmpGreenTeam);
             i++;
         }
 
@@ -49,22 +65,94 @@ public class GameModel implements Model, ChangeListener {
         teams.add(tmpGreenTeam);
     }
 
+    // Sort places it in ascending order. Reverse to flip to descending
+    // Updates the leading player and team as well
+    private void sortLeaderboards() {
+        if (!Objects.isNull(leadingPlayer))
+            leadingPlayer.setLeaderStatus(false);
+        if (!Objects.isNull(leadingTeam))
+            leadingTeam.setLeaderStatus(false);
+
+        Collections.sort(playerLeaderboard, Collections.reverseOrder());
+
+        Collections.sort(teamLeaderboard, Collections.reverseOrder());
+
+        leadingPlayer = getTopScoringPlayer();
+        leadingTeam = getTopScoringTeam();
+
+        if (!Objects.isNull(leadingPlayer))
+            leadingPlayer.setLeaderStatus(true);
+        if (!Objects.isNull(leadingTeam))
+            leadingTeam.setLeaderStatus(true);
+    }
+
+    // Returns null if there's a tie
+    public Player getTopScoringPlayer() {
+        return getGreatestListItem(playerLeaderboard);
+    }
+
+    // Returns null if there's a tie
+    public Team getTopScoringTeam() {
+        return getGreatestListItem(teamLeaderboard);
+    }
+
+    public List<Team> getTeamLeaderboard() {
+        return teamLeaderboard;
+    }
+
+    public List<Player> getPlayerLeaderboard() {
+        return playerLeaderboard;
+    }
+
+    // Get highest value list item, but return null if a tie exists
+    private <T extends Comparable<T>> T getGreatestListItem(List<T> list) {
+        Iterator<T> iter = list.iterator();
+        T result = iter.next();
+
+        if (iter.hasNext() && result.compareTo(iter.next()) == 0)
+            result = null;
+
+        return result;
+    }
+
     @Override
     public void addTeam(Team team) {
-        // TODO: Add checking for existing team. Maybe use a Set / HashSet instead?
         teams.add(team);
     }
 
     @Override
     public void addPlayer(Player player, Team team) {
+        if (!teams.contains(team))
+            teams.add(team);
+
         players.put(player.getId(), player);
         team.addPlayer(player.getId(), player);
     }
 
     @Override
+    public void playerHit(int attackerID, int victimID) {
+        playerHit(getPlayerById(attackerID), getPlayerById(victimID));
+    }
+
+    @Override
     public void playerHit(Player attacker, Player victim) {
-        // TODO: Sprint 4
-        // Check behavior on Trello
+        playerHit(new PlayerHitEvent(attacker, victim));
+    }
+
+    @Override
+    public void playerHit(PlayerHitEvent e) {
+        final int HIT_VALUE = 10;
+
+        e.getAttacker().addToScore(HIT_VALUE);
+        e.getVictim().addToScore(-HIT_VALUE);
+
+        eventQueue.add(e);
+
+        for (Team tmp : teams) {
+            tmp.addPlayerScores();
+        }
+
+        sortLeaderboards();
     }
 
     public void startCountdown() {
@@ -74,7 +162,9 @@ public class GameModel implements Model, ChangeListener {
 
     @Override
     public void startMatch() {
-        // TODO: Finish in Sprint 4?
+        playerLeaderboard = new LinkedList<>(players.values());
+        teamLeaderboard = new LinkedList<>(teams);
+        gameInProgress = true;
     }
 
     @Override
@@ -116,8 +206,12 @@ public class GameModel implements Model, ChangeListener {
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == timer && timer.getTime().isZero()) {
             startMatch();
-            // TODO: Check that this would actually work, and also set timer to new value
         }
+    }
+
+    @Override
+    public EventFeedQueue getEventQueue() {
+        return eventQueue;
     }
 
 }

@@ -1,6 +1,6 @@
 package team01.photon;
 
-public interface Player extends ChangeNotifier {
+public interface Player extends ChangeNotifier, Comparable<Player> {
     public int getId();
 
     public String getCodename();
@@ -10,4 +10,8 @@ public interface Player extends ChangeNotifier {
     public void setScore(int newScore);
 
     public void addToScore(int newScore);
+
+    public boolean getLeaderStatus();
+
+    public void setLeaderStatus(boolean value);
 }

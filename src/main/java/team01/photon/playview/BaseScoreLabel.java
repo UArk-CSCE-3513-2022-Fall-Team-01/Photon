@@ -17,7 +17,7 @@ public abstract class BaseScoreLabel extends BaseLabel {
         super.setText(formatScore(score));
     }
 
-    private static String formatScore(int score) {
+    public static String formatScore(int score) {
         return String.format(SCORE_FORMAT, score);
     }
 }

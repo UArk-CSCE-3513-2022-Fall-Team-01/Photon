@@ -41,9 +41,8 @@ public class MainView extends JFrame implements View {
         Iterator<Team> tmp2 = model.getTeams().iterator();
 
         tmp = new TeamPane(tmp2.next());
-        tmp2.remove();
         add(tmp);
-        add(new MatchPane(model.getTimer()));
+        add(new MatchPane(model.getTimer(), model.getEventQueue()));
         tmp = new TeamPane(tmp2.next());
         add(tmp);
 

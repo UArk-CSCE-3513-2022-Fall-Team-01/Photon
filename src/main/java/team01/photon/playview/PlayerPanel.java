@@ -1,18 +1,24 @@
 package team01.photon.playview;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import team01.photon.Player;
 
-public class PlayerPanel extends BasePanel implements ChangeListener {
+public class PlayerPanel extends BasePanel implements ChangeListener, ActionListener {
     private transient PlayerNameLabel name;
     private transient PlayerScoreLabel score;
     private transient Player linkedPlayer;
     private static final String PLACEHOLDER = "Player";
+    private Timer flashTimer;
+    private static final int FLASH_INTERVAL = 1000;
 
     public PlayerPanel() {
         this(PLACEHOLDER, 0);
@@ -34,6 +40,16 @@ public class PlayerPanel extends BasePanel implements ChangeListener {
         add(this.name);
         add(Box.createHorizontalGlue());
         add(this.score);
+
+        flashTimer = new Timer(FLASH_INTERVAL / 2, this);
+    }
+
+    public void changePlayer(Player player) {
+        linkedPlayer.removeChangeListener(this);
+        linkedPlayer = player;
+        linkedPlayer.addChangeListener(this);
+        setPlayerName(linkedPlayer.getCodename());
+        setPlayerScore(linkedPlayer.getScore());
     }
 
     public void setPlayerName(String name) {
@@ -47,8 +63,20 @@ public class PlayerPanel extends BasePanel implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         score.setScore(linkedPlayer.getScore());
+        updateTimer();
     }
 
-    // TODO: Test out flipping the orientation. It should work if using
-    // setComponentOrientation
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        name.setForeground(Constants.deriveComplement(name.getForeground()));
+    }
+
+    private void updateTimer() {
+        if (linkedPlayer.getLeaderStatus()) {
+            flashTimer.start();
+        } else {
+            flashTimer.stop();
+            name.setForeground(Constants.FG_COLOR);
+        }
+    }
 }

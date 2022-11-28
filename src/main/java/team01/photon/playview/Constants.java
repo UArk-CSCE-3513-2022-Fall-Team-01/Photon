@@ -25,4 +25,11 @@ public final class Constants {
     public static final Font MONO_FONT = new Font(Font.MONOSPACED, Font.PLAIN, BASE_FONT_SIZE);
     public static final Font BIG_MONO_FONT = MONO_FONT.deriveFont(BIG_FONT_SIZE);
     public static final Font SMALL_MONO_FONT = MONO_FONT.deriveFont(SMALL_FONT_SIZE);
+
+    public static final Color deriveComplement(final Color color) {
+        return new Color(
+            255 - color.getRed(),
+            255 - color.getGreen(),
+            255 - color.getBlue());
+    }
 }

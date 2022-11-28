@@ -7,16 +7,19 @@ public class Game {
     private EntryGraphicsView entryScreen;
     private GameModel model;
     private MainView actionScreen;
+    private NetworkReceiver networkReceiver;
 
     public static void main(String[] args) {
         Game self = new Game();
         self.run();
+        //Add some kind of check to make sure network events aren't processed before or after the actual play time
     }
 
     public void run() {
         splashScreen = new Splash(3000); // Create a splash screen that lasts for 3 seconds
         splashScreen.show(); // Show the splash screen
 
+        networkReceiver = new NetworkReceiver();
         entryScreen = new EntryGraphicsView(this);
         entryScreen.run();
     }
@@ -29,5 +32,7 @@ public class Game {
         actionScreen = new MainView(model, null);
         actionScreen.setVisible(true);
         model.startCountdown();
+        networkReceiver.receiver.start();
+        networkReceiver.StartPlay(model);
     }
 }
