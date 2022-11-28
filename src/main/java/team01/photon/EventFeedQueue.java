@@ -1,5 +1,6 @@
 package team01.photon;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 import javax.swing.event.ChangeEvent;
@@ -23,6 +24,10 @@ public class EventFeedQueue implements ChangeNotifier {
             fireChangeEvent();
         
         return result;
+    }
+
+    public Deque<PlayerHitEvent> getDeque() {
+        return queue;
     }
 
     public PlayerHitEvent getLatest() {

@@ -1,17 +1,47 @@
 package team01.photon.playview;
 
 import java.awt.Color;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
-public class EventFeedPanel extends BasePanel {
-    // TODO: Will eventually be populated with event feed records / panels in Sprint
-    // 4
-    // Will need to manage a stack / queue of them to display somehow, so that when
-    // they start reaching the top they will remove the oldest events shown to make
-    // room for the new one
-    public EventFeedPanel() {
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import team01.photon.EventFeedQueue;
+import team01.photon.PlayerHitEvent;
+
+public class EventFeedPanel extends BasePanel implements ChangeListener {
+    private transient EventFeedQueue linkedQueue;
+
+    public EventFeedPanel(EventFeedQueue queue) {
         super();
-        // setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setBackground(new Color(32, 0, 32));
-        setOpaque(true);
+
+        setAlignmentX(CENTER_ALIGNMENT);
+        setAlignmentY(CENTER_ALIGNMENT);
+
+        linkedQueue = queue;
+        linkedQueue.addChangeListener(this);
+
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        add(Box.createVerticalGlue());
+
+        // setBackground(new Color(32, 0, 32));
+        // setOpaque(true);
+    }
+
+    public void pushEvent(PlayerHitEvent e) {
+        if (getComponentCount() > 15)
+            remove(1);
+
+        // Insert at the end / bottom of list
+        add(new EventLabel(e), -1);
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent arg0) {
+        pushEvent(linkedQueue.getLatest());
     }
 }
