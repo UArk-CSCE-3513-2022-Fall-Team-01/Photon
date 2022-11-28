@@ -26,10 +26,10 @@ public class EventFeedPanel extends BasePanel implements ChangeListener {
         linkedQueue.addChangeListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        add(Box.createGlue());
+        add(Box.createVerticalGlue());
 
-        setBackground(new Color(32, 0, 32));
-        setOpaque(true);
+        // setBackground(new Color(32, 0, 32));
+        // setOpaque(true);
     }
 
     public void pushEvent(PlayerHitEvent e) {

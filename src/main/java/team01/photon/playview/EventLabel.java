@@ -18,6 +18,6 @@ public class EventLabel extends BaseLabel {
     }
 
     public EventLabel(PlayerHitEvent e) {
-        super(e.toString(), Constants.FG_COLOR, SwingConstants.CENTER);
+        this(e.toString(), Constants.FG_COLOR, SwingConstants.CENTER);
     }
 }
