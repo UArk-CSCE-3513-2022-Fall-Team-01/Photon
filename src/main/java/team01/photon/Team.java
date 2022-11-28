@@ -1,5 +1,6 @@
 package team01.photon;
 
+import java.awt.Color;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,9 +18,11 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     private HashMap<Integer, Player> players = new HashMap<>(15);
     private EventListenerList listeners;
     private boolean leaderStatus = false;
+    private Color color;
 
-    public Team(String name) {
+    public Team(String name, Color color) {
         this.name = name;
+        this.color = color;
         listeners = new EventListenerList();
     }
 
@@ -33,6 +36,10 @@ public class Team implements Comparable<Team>, ChangeNotifier {
         return tmp;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -42,7 +49,7 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     }
 
     public void setScore(int score) {
-        int oldScore = score;
+        int oldScore = this.score;
         this.score = score;
         if (score != oldScore)
             fireChangeEvent();
@@ -73,10 +80,13 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     public void addPlayerScores(){
         int oldScore = score;
         int newScore = 0;
+
         for(Player numPlayer : players.values()) {
             newScore += numPlayer.getScore();
         }
+
         this.score = newScore;
+
         if (newScore != oldScore)
             fireChangeEvent();
     }

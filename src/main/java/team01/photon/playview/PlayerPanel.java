@@ -68,7 +68,7 @@ public class PlayerPanel extends BasePanel implements ChangeListener, ActionList
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        setVisible(!isVisible());
+        name.setForeground(Constants.deriveComplement(name.getForeground()));
     }
 
     private void updateTimer() {
@@ -76,7 +76,7 @@ public class PlayerPanel extends BasePanel implements ChangeListener, ActionList
             flashTimer.start();
         } else {
             flashTimer.stop();
-            setVisible(true);
+            name.setForeground(Constants.FG_COLOR);
         }
     }
 }

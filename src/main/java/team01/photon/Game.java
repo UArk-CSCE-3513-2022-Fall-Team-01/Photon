@@ -19,9 +19,9 @@ public class Game {
         splashScreen = new Splash(3000); // Create a splash screen that lasts for 3 seconds
         splashScreen.show(); // Show the splash screen
 
+        networkReceiver = new NetworkReceiver();
         entryScreen = new EntryGraphicsView(this);
         entryScreen.run();
-        networkReceiver = new NetworkReceiver();
     }
 
     public void switchToPlayScreen() {

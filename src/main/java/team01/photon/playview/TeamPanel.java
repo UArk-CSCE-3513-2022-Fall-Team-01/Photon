@@ -7,8 +7,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import team01.photon.Team;
 
@@ -25,7 +23,7 @@ public class TeamPanel extends BasePanel implements ActionListener {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 
         linkedTeam = team;
-        this.name = new TeamNameLabel(team.getName(), Constants.FG_COLOR, SwingConstants.LEADING);
+        this.name = new TeamNameLabel(team.getName(), linkedTeam.getColor(), SwingConstants.LEADING);
         this.score = new TeamScoreLabel(team.getScore(), Constants.FG_COLOR, SwingConstants.TRAILING);
 
         add(this.name);
@@ -41,12 +39,12 @@ public class TeamPanel extends BasePanel implements ActionListener {
             flashTimer.start();
         } else {
             flashTimer.stop();
-            score.setVisible(true);
+            score.setForeground(Constants.FG_COLOR);
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        score.setVisible(!score.isVisible());
+        score.setForeground(Constants.deriveComplement(score.getForeground()));
     }
 }

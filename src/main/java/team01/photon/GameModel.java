@@ -1,5 +1,6 @@
 package team01.photon;
 
+import java.awt.Color;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,8 +39,8 @@ public class GameModel implements Model, ChangeListener {
     }
 
     public void importEntryGraphicsData(EntryGraphics data) {
-        Team tmpRedTeam = new Team("Alpha Red");
-        Team tmpGreenTeam = new Team("Alpha Grn");
+        Team tmpRedTeam = new Team("Alpha Red", Color.RED);
+        Team tmpGreenTeam = new Team("Alpha Grn", Color.GREEN);
 
         int i = 0;
         for (int id : data.redTeamIDs) {
@@ -105,13 +106,13 @@ public class GameModel implements Model, ChangeListener {
     }
 
     // Get highest value list item, but return null if a tie exists
-    private <T extends Comparable<T>> T getGreatestListItem(LinkedList<T> list) {
+    private <T extends Comparable<T>> T getGreatestListItem(List<T> list) {
         Iterator<T> iter = list.iterator();
         T result = iter.next();
 
-        if (result.compareTo(iter.next()) == 0)
+        if (iter.hasNext() && result.compareTo(iter.next()) == 0)
             result = null;
-        
+
         return result;
     }
 
@@ -130,7 +131,9 @@ public class GameModel implements Model, ChangeListener {
     }
 
     @Override
-    public void playerHit(int attackerID, int victimID) { playerHit(getPlayerById(attackerID),getPlayerById(victimID)); }
+    public void playerHit(int attackerID, int victimID) {
+        playerHit(getPlayerById(attackerID), getPlayerById(victimID));
+    }
 
     @Override
     public void playerHit(Player attacker, Player victim) {
@@ -140,13 +143,16 @@ public class GameModel implements Model, ChangeListener {
     @Override
     public void playerHit(PlayerHitEvent e) {
         final int HIT_VALUE = 10;
+
         e.getAttacker().addToScore(HIT_VALUE);
         e.getVictim().addToScore(-HIT_VALUE);
 
         eventQueue.add(e);
+
         for (Team tmp : teams) {
             tmp.addPlayerScores();
         }
+
         sortLeaderboards();
     }
 
