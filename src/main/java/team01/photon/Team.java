@@ -30,8 +30,7 @@ public class Team implements Comparable<Team>, ChangeNotifier {
     public List<Player> getLeaderboard() {
         LinkedList<Player> tmp = new LinkedList<>(players.values());
 
-        Collections.sort(tmp);
-        Collections.reverse(tmp);
+        Collections.sort(tmp, Collections.reverseOrder());
 
         return tmp;
     }

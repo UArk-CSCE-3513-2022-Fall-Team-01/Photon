@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -72,11 +73,9 @@ public class GameModel implements Model, ChangeListener {
         if (!Objects.isNull(leadingTeam))
             leadingTeam.setLeaderStatus(false);
 
-        Collections.sort(playerLeaderboard);
-        Collections.reverse(playerLeaderboard);
+        Collections.sort(playerLeaderboard, Collections.reverseOrder());
 
-        Collections.sort(teamLeaderboard);
-        Collections.reverse(teamLeaderboard);
+        Collections.sort(teamLeaderboard, Collections.reverseOrder());
 
         leadingPlayer = getTopScoringPlayer();
         leadingTeam = getTopScoringTeam();
