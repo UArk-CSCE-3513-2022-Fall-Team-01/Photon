@@ -209,4 +209,9 @@ public class GameModel implements Model, ChangeListener {
         }
     }
 
+    @Override
+    public EventFeedQueue getEventQueue() {
+        return eventQueue;
+    }
+
 }

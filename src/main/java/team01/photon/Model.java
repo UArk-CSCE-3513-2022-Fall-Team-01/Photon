@@ -33,4 +33,6 @@ public interface Model {
     public List<Player> getPlayerLeaderboard();
 
     public List<Team> getTeamLeaderboard();
+
+    public EventFeedQueue getEventQueue();
 }
