@@ -67,6 +67,8 @@ class SocketListener extends Thread
             if(gameModel.gameInProgress){
                 gameModel.playerHit(perpetrator,victim);
             }
+
+            receivedBytes = new byte[65535];
         }
 
         socket.close();
