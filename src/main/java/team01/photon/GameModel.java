@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,10 +58,13 @@ public class GameModel implements Model, ChangeListener {
         teams.add(tmpGreenTeam);
     }
 
-    // Sorts in ascending order, so top player is at the bottom
+    // Sort places it in ascending order. Reverse to flip to descending
     private void sortLeaderboards() {
         Collections.sort(playerLeaderboard);
+        Collections.reverse(playerLeaderboard);
+
         Collections.sort(teamLeaderboard);
+        Collections.reverse(teamLeaderboard);
     }
 
     // Returns null if there's a tie
@@ -83,9 +87,10 @@ public class GameModel implements Model, ChangeListener {
 
     // Get highest value list item, but return null if a tie exists
     private <T extends Comparable<T>> T getGreatestListItem(LinkedList<T> list) {
-        T result = list.getLast();
+        Iterator<T> iter = list.iterator();
+        T result = iter.next();
 
-        if (result.compareTo(list.get(-2)) == 0)
+        if (result.compareTo(iter.next()) == 0)
             result = null;
         
         return result;
