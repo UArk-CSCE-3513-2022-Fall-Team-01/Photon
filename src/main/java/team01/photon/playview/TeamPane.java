@@ -25,7 +25,7 @@ public class TeamPane extends BasePanel implements ChangeListener {
         linkedTeam = team;
         teamInfo = new TeamPanel(linkedTeam);
         membersInfo = new PlayerRosterPanel(linkedTeam.getPlayers());
-        // team.addChangeListener(this);
+        team.addChangeListener(this);
 
         add(teamInfo);
         add(membersInfo);
@@ -42,6 +42,6 @@ public class TeamPane extends BasePanel implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent arg0) {
         teamInfo.updateScore();
-        // membersInfo.reassignPlayers(linkedTeam.getLeaderboard());
+        membersInfo.reassignPlayers(linkedTeam.getLeaderboard());
     }
 }
