@@ -35,5 +35,7 @@ public class MatchStatusPanel extends BasePanel implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         timerLabel.setTime(timer.getTime());
+        if (timer.getTime().toSeconds() <= 0)
+            timerLabel.setVisible(false);
     }
 }

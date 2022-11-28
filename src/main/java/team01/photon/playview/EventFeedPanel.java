@@ -33,7 +33,7 @@ public class EventFeedPanel extends BasePanel implements ChangeListener {
     }
 
     public void pushEvent(PlayerHitEvent e) {
-        if (getComponentCount() > 15)
+        if (getComponentCount() > 18)
             remove(1);
 
         // Insert at the end / bottom of list
