@@ -85,7 +85,7 @@ public class Team implements Comparable<Team>, ChangeNotifier {
             newScore += numPlayer.getScore();
         }
 
-        this.score = newScore;
+        score = newScore;
 
         if (newScore != oldScore)
             fireChangeEvent();
